@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>3de48c41-17ac-4a74-8f43-60331c71a985</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>MvvmValidation.UI</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ContentDialog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Popup.partial.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Style.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Border.cs" />
+  </ItemGroup>
+</Project>

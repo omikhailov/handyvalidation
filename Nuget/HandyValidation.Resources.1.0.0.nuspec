@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HandyValidation.Resources</id>
+    <version>1.0.0</version>
+    <title>HandyValidation.Resources</title>
+    <authors>Oleg Mikhailov</authors>
+    <owners></owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/omikhailov/handyvalidation/blob/main/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/omikhailov/handyvalidation</projectUrl>
+    <description>Validation library for WinUI and UWP. This package contains extensions for validation messages localization.</description>
+    <summary>Validation library for WinUI and UWP</summary>
+    <tags>uwp winui validation mvvm</tags>
+  </metadata>
+  <files>
+    <file src="..\Code\HandyValidation.Resources for WinUI\bin\Release\net6.0-windows10.0.19041.0\HandyValidation.dll" target="lib\net6.0\HandyValidation.dll" />
+    <file src="..\Code\HandyValidation.Resources for WinUI\bin\Release\net6.0-windows10.0.19041.0\HandyValidation.pdb" target="lib\net6.0\HandyValidation.pdb" />
+    <file src="..\Code\HandyValidation.Resources for WinUI\bin\Release\net6.0-windows10.0.19041.0\HandyValidation.xml" target="lib\net6.0\HandyValidation.xml" />
+    <file src="..\Code\HandyValidation.Resources for WinUI\bin\Release\net6.0-windows10.0.19041.0\HandyValidation.Resources.deps.json" target="lib\net6.0\HandyValidation.Resources.deps.json" />
+    <file src="..\Code\HandyValidation.Resources for WinUI\bin\Release\net6.0-windows10.0.19041.0\HandyValidation.Resources.dll" target="lib\net6.0\HandyValidation.Resources.dll" />
+    <file src="..\Code\HandyValidation.Resources for WinUI\bin\Release\net6.0-windows10.0.19041.0\HandyValidation.Resources.pdb" target="lib\net6.0\HandyValidation.Resources.pdb" />
+    <file src="..\Code\HandyValidation.Resources for WinUI\bin\Release\net6.0-windows10.0.19041.0\HandyValidation.Resources.pri" target="lib\net6.0\HandyValidation.Resources.pri" />
+    <file src="..\Code\HandyValidation.Resources for WinUI\bin\Release\net6.0-windows10.0.19041.0\HandyValidation.Resources.xml" target="lib\net6.0\HandyValidation.Resources.xml" />
+
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\Release\HandyValidation.dll" target="lib\uap10.0.16299\HandyValidation.dll" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\Release\HandyValidation.pdb" target="lib\uap10.0.16299\HandyValidation.pdb" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\Release\HandyValidation.Resources.dll" target="lib\uap10.0.16299\HandyValidation.Resources.dll" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\Release\HandyValidation.Resources.pdb" target="lib\uap10.0.16299\HandyValidation.Resources.pdb" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\Release\HandyValidation.Resources.pri" target="lib\uap10.0.16299\HandyValidation.Resources.pri" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\Release\HandyValidation.Resources.XML" target="lib\uap10.0.16299\HandyValidation.Resources.XML" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\Release\HandyValidation.xml" target="lib\uap10.0.16299\HandyValidation.xml" />
+
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM\Release\HandyValidation.dll" target="runtime\win10-arm\lib\uap10.0.16299\HandyValidation.dll" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM\Release\HandyValidation.pdb" target="runtime\win10-arm\lib\uap10.0.16299\HandyValidation.pdb" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM\Release\HandyValidation.Resources.dll" target="runtime\win10-arm\lib\uap10.0.16299\HandyValidation.Resources.dll" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM\Release\HandyValidation.Resources.pdb" target="runtime\win10-arm\lib\uap10.0.16299\HandyValidation.Resources.pdb" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM\Release\HandyValidation.Resources.pri" target="runtime\win10-arm\lib\uap10.0.16299\HandyValidation.Resources.pri" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM\Release\HandyValidation.Resources.XML" target="runtime\win10-arm\lib\uap10.0.16299\HandyValidation.Resources.XML" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM\Release\HandyValidation.xml" target="runtime\win10-arm\lib\uap10.0.16299\HandyValidation.xml" />
+
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM64\Release\HandyValidation.dll" target="runtime\win10-arm64\lib\uap10.0.16299\HandyValidation.dll" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM64\Release\HandyValidation.pdb" target="runtime\win10-arm64\lib\uap10.0.16299\HandyValidation.pdb" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM64\Release\HandyValidation.Resources.dll" target="runtime\win10-arm64\lib\uap10.0.16299\HandyValidation.Resources.dll" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM64\Release\HandyValidation.Resources.pdb" target="runtime\win10-arm64\lib\uap10.0.16299\HandyValidation.Resources.pdb" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM64\Release\HandyValidation.Resources.pri" target="runtime\win10-arm64\lib\uap10.0.16299\HandyValidation.Resources.pri" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM64\Release\HandyValidation.Resources.XML" target="runtime\win10-arm64\lib\uap10.0.16299\HandyValidation.Resources.XML" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\ARM64\Release\HandyValidation.xml" target="runtime\win10-arm64\lib\uap10.0.16299\HandyValidation.xml" />
+
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x64\Release\HandyValidation.dll" target="runtime\win10-x64\lib\uap10.0.16299\HandyValidation.dll" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x64\Release\HandyValidation.pdb" target="runtime\win10-x64\lib\uap10.0.16299\HandyValidation.pdb" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x64\Release\HandyValidation.Resources.dll" target="runtime\win10-x64\lib\uap10.0.16299\HandyValidation.Resources.dll" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x64\Release\HandyValidation.Resources.pdb" target="runtime\win10-x64\lib\uap10.0.16299\HandyValidation.Resources.pdb" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x64\Release\HandyValidation.Resources.pri" target="runtime\win10-x64\lib\uap10.0.16299\HandyValidation.Resources.pri" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x64\Release\HandyValidation.Resources.XML" target="runtime\win10-x64\lib\uap10.0.16299\HandyValidation.Resources.XML" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x64\Release\HandyValidation.xml" target="runtime\win10-x64\lib\uap10.0.16299\HandyValidation.xml" />
+
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x86\Release\HandyValidation.dll" target="runtime\win10-x86\lib\uap10.0.16299\HandyValidation.dll" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x86\Release\HandyValidation.pdb" target="runtime\win10-x86\lib\uap10.0.16299\HandyValidation.pdb" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x86\Release\HandyValidation.Resources.dll" target="runtime\win10-x86\lib\uap10.0.16299\HandyValidation.Resources.dll" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x86\Release\HandyValidation.Resources.pdb" target="runtime\win10-x86\lib\uap10.0.16299\HandyValidation.Resources.pdb" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x86\Release\HandyValidation.Resources.pri" target="runtime\win10-x86\lib\uap10.0.16299\HandyValidation.Resources.pri" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x86\Release\HandyValidation.Resources.XML" target="runtime\win10-x86\lib\uap10.0.16299\HandyValidation.Resources.XML" />
+    <file src="..\Code\HandyValidation.Resources for UWP 10.0.16299\bin\x86\Release\HandyValidation.xml" target="runtime\win10-x86\lib\uap10.0.16299\HandyValidation.xml" />
+  </files>
+</package>

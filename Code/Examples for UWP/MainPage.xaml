@@ -1,0 +1,92 @@
+﻿<Page
+    x:Class="Examples.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Examples"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:vm="using:Examples.ViewModel"
+    xmlns:validation="using:HandyValidation.UI"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid x:Name="Root">
+        <Grid.DataContext>
+            <vm:MainViewModel x:Name="ViewModel" />
+        </Grid.DataContext>
+
+        <Grid.Resources>
+            <ResourceDictionary>
+                <Style TargetType="TextBlock" x:Key="ValidationMessage">
+                    <Setter Property="Foreground" Value="#C42B1C" />
+                    <Setter Property="TextWrapping" Value="Wrap" />
+                </Style>
+                <Style x:Key="InvalidLastName" TargetType="TextBox">
+                    <Setter Property="Background" Value="LightPink" />
+                </Style>
+                <DataTemplate x:Key="CustomValidationPopupItem" x:DataType="x:Object">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <SymbolIcon Symbol="Important" Height="16" VerticalAlignment="Top" Margin="0,6,8,0" />
+                        <TextBlock Grid.Column="1" Text="{x:Bind}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,0,8,0" />
+                    </Grid>
+                </DataTemplate>
+            </ResourceDictionary>
+        </Grid.Resources>
+
+        <ScrollViewer>
+            <StackPanel HorizontalAlignment="Center" Width="400" Padding="8,64,8,24">
+
+                <TextBox x:Name="FirstName" Header="First Name" Text="{x:Bind ViewModel.FirstName.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                         validation:Border.IsHighlighted="{x:Bind ViewModel.FirstName.Validator.HasIssues, Mode=OneWay}"
+                         validation:Border.HighlightingBrush="#C42B1C" />
+                <TextBlock Text="{x:Bind ViewModel.FirstName.Validator.FirstIssue, Mode=OneWay}"
+                           Visibility="{x:Bind ViewModel.FirstName.Validator.HasIssues, Mode=OneWay}" Style="{StaticResource ValidationMessage}" />
+
+                <TextBox Header="Last Name" Text="{x:Bind ViewModel.LastName.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                         validation:Style.Value="{StaticResource InvalidLastName}" 
+                         validation:Style.IsApplied="{x:Bind ViewModel.LastName.Validator.HasIssues, Mode=OneWay}" />
+
+                <DatePicker Header="Date of Birth" Date="{x:Bind ViewModel.Dob.Value, Mode=TwoWay}" HorizontalAlignment="Stretch" Margin="0,8,0,0"
+                            validation:Popup.IsOpen="{x:Bind ViewModel.Dob.Validator.HasIssues, Mode=OneWay}"
+                            validation:Popup.ItemsSource="{x:Bind ViewModel.Dob.Validator.Issues}" />
+
+                <TextBox Header="Phone Number" Text="{x:Bind ViewModel.PhoneNumber.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                         validation:Popup.IsOpen="{x:Bind ViewModel.PhoneNumber.Validator.HasIssues, Mode=OneWay}"
+                         validation:Popup.ItemsSource="{x:Bind ViewModel.PhoneNumber.Validator.Issues}" />
+
+                <TextBox Header="Email" Text="{x:Bind ViewModel.Email.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                         validation:Popup.IsOpen="{x:Bind ViewModel.Email.Validator.HasIssues, Mode=OneWay}"
+                         validation:Popup.ItemsSource="{x:Bind ViewModel.Email.Validator.Issues}" />
+
+                <PasswordBox Header="Password" Password="{x:Bind ViewModel.Password.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                             validation:Popup.IsOpen="{x:Bind ViewModel.Password.Validator.HasIssues, Mode=OneWay}"
+                             validation:Popup.ItemsSource="{x:Bind ViewModel.Password.Validator.Issues}"
+                             validation:Popup.ItemTemplate="{StaticResource CustomValidationPopupItem}" />
+
+                <PasswordBox Header="Confirm Password" Password="{x:Bind ViewModel.ConfirmPassword.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                             validation:Popup.IsOpen="{x:Bind ViewModel.ConfirmPasswordValidator.HasIssues, Mode=OneWay}"
+                             validation:Popup.ItemsSource="{x:Bind ViewModel.ConfirmPasswordValidator.Issues}" />
+
+                <Button Content="Submit" IsEnabled="{x:Bind ViewModel.SubmitButtonWatcher.IsValid, Mode=OneWay}" Click="{x:Bind ViewModel.Submit}" HorizontalAlignment="Right" Margin="0,32,0,0" />
+                
+            </StackPanel>
+        </ScrollViewer>
+
+        <ContentDialog Title="Custom Dialog" CloseButtonText="OK"
+                       validation:ContentDialog.IsOpen="{x:Bind ViewModel.FormValidator.HasIssues, Mode=OneWay}">
+            <Grid MinWidth="300">
+                <ItemsControl ItemsSource="{x:Bind ViewModel.FormValidator.Issues}" Margin="32,16,32,16">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </ContentDialog>
+    </Grid>
+</Page>

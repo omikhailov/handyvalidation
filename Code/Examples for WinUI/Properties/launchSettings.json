@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "ValidationExamples (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "ValidationExamples (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}

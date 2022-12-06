@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HandyValidation.UI</id>
+    <version>1.0.0</version>
+    <title>HandyValidation.UI</title>
+    <authors>Oleg Mikhailov</authors>
+    <owners></owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/omikhailov/handyvalidation/blob/main/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/omikhailov/handyvalidation</projectUrl>
+    <description>Validation library for WinUI and UWP. This package contains classes for view layer.</description>
+    <summary>Validation library for WinUI and UWP</summary>
+    <tags>uwp winui validation mvvm</tags>
+  </metadata>
+  <files>
+    <file src="..\Code\HandyValidation.UI for WinUI\bin\Release\net6.0-windows10.0.19041.0\HandyValidation.UI.deps.json" target="lib\net6.0\HandyValidation.UI.deps.json" />
+    <file src="..\Code\HandyValidation.UI for WinUI\bin\Release\net6.0-windows10.0.19041.0\HandyValidation.UI.dll" target="lib\net6.0\HandyValidation.UI.dll" />
+    <file src="..\Code\HandyValidation.UI for WinUI\bin\Release\net6.0-windows10.0.19041.0\HandyValidation.UI.pdb" target="lib\net6.0\HandyValidation.UI.pdb" />
+    <file src="..\Code\HandyValidation.UI for WinUI\bin\Release\net6.0-windows10.0.19041.0\HandyValidation.UI.pri" target="lib\net6.0\HandyValidation.UI.pri" />
+    <file src="..\Code\HandyValidation.UI for WinUI\bin\Release\net6.0-windows10.0.19041.0\HandyValidation.UI.xml" target="lib\net6.0\HandyValidation.UI.xml" />
+
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\Release\HandyValidation.UI.winmd" target="lib\uap10.0.16299\HandyValidation.UI.winmd" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\Release\HandyValidation.UI.pdb" target="lib\uap10.0.16299\HandyValidation.UI.pdb" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\Release\HandyValidation.UI.pri" target="lib\uap10.0.16299\HandyValidation.UI.pri" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\Release\HandyValidation.UI.XML" target="lib\uap10.0.16299\HandyValidation.UI.XML" />
+    
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\ARM\Release\HandyValidation.UI.winmd" target="runtime\win10-arm\lib\uap10.0.16299\HandyValidation.UI.winmd" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\ARM\Release\HandyValidation.UI.pdb" target="runtime\win10-arm\lib\uap10.0.16299\HandyValidation.UI.pdb" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\ARM\Release\HandyValidation.UI.pri" target="runtime\win10-arm\lib\uap10.0.16299\HandyValidation.UI.pri" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\ARM\Release\HandyValidation.UI.XML" target="runtime\win10-arm\lib\uap10.0.16299\HandyValidation.UI.XML" />
+
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\ARM64\Release\HandyValidation.UI.winmd" target="runtime\win10-arm64\lib\uap10.0.16299\HandyValidation.UI.winmd" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\ARM64\Release\HandyValidation.UI.pdb" target="runtime\win10-arm64\lib\uap10.0.16299\HandyValidation.UI.pdb" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\ARM64\Release\HandyValidation.UI.pri" target="runtime\win10-arm64\lib\uap10.0.16299\HandyValidation.UI.pri" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\ARM64\Release\HandyValidation.UI.XML" target="runtime\win10-arm64\lib\uap10.0.16299\HandyValidation.UI.XML" />
+
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\x64\Release\HandyValidation.UI.winmd" target="runtime\win10-x64\lib\uap10.0.16299\HandyValidation.UI.winmd" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\x64\Release\HandyValidation.UI.pdb" target="runtime\win10-x64\lib\uap10.0.16299\HandyValidation.UI.pdb" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\x64\Release\HandyValidation.UI.pri" target="runtime\win10-x64\lib\uap10.0.16299\HandyValidation.UI.pri" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\x64\Release\HandyValidation.UI.XML" target="runtime\win10-x64\lib\uap10.0.16299\HandyValidation.UI.XML" />
+
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\x86\Release\HandyValidation.UI.winmd" target="runtime\win10-x86\lib\uap10.0.16299\HandyValidation.UI.winmd" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\x86\Release\HandyValidation.UI.pdb" target="runtime\win10-x86\lib\uap10.0.16299\HandyValidation.UI.pdb" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\x86\Release\HandyValidation.UI.pri" target="runtime\win10-x86\lib\uap10.0.16299\HandyValidation.UI.pri" />
+    <file src="..\Code\HandyValidation.UI for UWP 10.0.16299\bin\x86\Release\HandyValidation.UI.XML" target="runtime\win10-x86\lib\uap10.0.16299\HandyValidation.UI.XML" />
+
+
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\Release\HandyValidation.UI.winmd" target="lib\uap10.0.18362\HandyValidation.UI.winmd" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\Release\HandyValidation.UI.pdb" target="lib\uap10.0.18362\HandyValidation.UI.pdb" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\Release\HandyValidation.UI.pri" target="lib\uap10.0.18362\HandyValidation.UI.pri" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\Release\HandyValidation.UI.XML" target="lib\uap10.0.18362\HandyValidation.UI.XML" />
+
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\ARM\Release\HandyValidation.UI.winmd" target="runtime\win10-arm\lib\uap10.0.18362\HandyValidation.UI.winmd" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\ARM\Release\HandyValidation.UI.pdb" target="runtime\win10-arm\lib\uap10.0.18362\HandyValidation.UI.pdb" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\ARM\Release\HandyValidation.UI.pri" target="runtime\win10-arm\lib\uap10.0.18362\HandyValidation.UI.pri" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\ARM\Release\HandyValidation.UI.XML" target="runtime\win10-arm\lib\uap10.0.18362\HandyValidation.UI.XML" />
+
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\ARM64\Release\HandyValidation.UI.winmd" target="runtime\win10-arm64\lib\uap10.0.18362\HandyValidation.UI.winmd" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\ARM64\Release\HandyValidation.UI.pdb" target="runtime\win10-arm64\lib\uap10.0.18362\HandyValidation.UI.pdb" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\ARM64\Release\HandyValidation.UI.pri" target="runtime\win10-arm64\lib\uap10.0.18362\HandyValidation.UI.pri" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\ARM64\Release\HandyValidation.UI.XML" target="runtime\win10-arm64\lib\uap10.0.18362\HandyValidation.UI.XML" />
+
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\x64\Release\HandyValidation.UI.winmd" target="runtime\win10-x64\lib\uap10.0.18362\HandyValidation.UI.winmd" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\x64\Release\HandyValidation.UI.pdb" target="runtime\win10-x64\lib\uap10.0.18362\HandyValidation.UI.pdb" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\x64\Release\HandyValidation.UI.pri" target="runtime\win10-x64\lib\uap10.0.18362\HandyValidation.UI.pri" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\x64\Release\HandyValidation.UI.XML" target="runtime\win10-x64\lib\uap10.0.18362\HandyValidation.UI.XML" />
+
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\x86\Release\HandyValidation.UI.winmd" target="runtime\win10-x86\lib\uap10.0.18362\HandyValidation.UI.winmd" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\x86\Release\HandyValidation.UI.pdb" target="runtime\win10-x86\lib\uap10.0.18362\HandyValidation.UI.pdb" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\x86\Release\HandyValidation.UI.pri" target="runtime\win10-x86\lib\uap10.0.18362\HandyValidation.UI.pri" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.18362\bin\x86\Release\HandyValidation.UI.XML" target="runtime\win10-x86\lib\uap10.0.18362\HandyValidation.UI.XML" />
+
+
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\Release\HandyValidation.UI.winmd" target="lib\uap10.0.22000\HandyValidation.UI.winmd" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\Release\HandyValidation.UI.pdb" target="lib\uap10.0.22000\HandyValidation.UI.pdb" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\Release\HandyValidation.UI.pri" target="lib\uap10.0.22000\HandyValidation.UI.pri" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\Release\HandyValidation.UI.XML" target="lib\uap10.0.22000\HandyValidation.UI.XML" />
+
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\ARM\Release\HandyValidation.UI.winmd" target="runtime\win10-arm\lib\uap10.0.22000\HandyValidation.UI.winmd" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\ARM\Release\HandyValidation.UI.pdb" target="runtime\win10-arm\lib\uap10.0.22000\HandyValidation.UI.pdb" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\ARM\Release\HandyValidation.UI.pri" target="runtime\win10-arm\lib\uap10.0.22000\HandyValidation.UI.pri" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\ARM\Release\HandyValidation.UI.XML" target="runtime\win10-arm\lib\uap10.0.22000\HandyValidation.UI.XML" />
+
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\ARM64\Release\HandyValidation.UI.winmd" target="runtime\win10-arm64\lib\uap10.0.22000\HandyValidation.UI.winmd" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\ARM64\Release\HandyValidation.UI.pdb" target="runtime\win10-arm64\lib\uap10.0.22000\HandyValidation.UI.pdb" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\ARM64\Release\HandyValidation.UI.pri" target="runtime\win10-arm64\lib\uap10.0.22000\HandyValidation.UI.pri" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\ARM64\Release\HandyValidation.UI.XML" target="runtime\win10-arm64\lib\uap10.0.22000\HandyValidation.UI.XML" />
+
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\x64\Release\HandyValidation.UI.winmd" target="runtime\win10-x64\lib\uap10.0.22000\HandyValidation.UI.winmd" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\x64\Release\HandyValidation.UI.pdb" target="runtime\win10-x64\lib\uap10.0.22000\HandyValidation.UI.pdb" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\x64\Release\HandyValidation.UI.pri" target="runtime\win10-x64\lib\uap10.0.22000\HandyValidation.UI.pri" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\x64\Release\HandyValidation.UI.XML" target="runtime\win10-x64\lib\uap10.0.22000\HandyValidation.UI.XML" />
+
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\x86\Release\HandyValidation.UI.winmd" target="runtime\win10-x86\lib\uap10.0.22000\HandyValidation.UI.winmd" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\x86\Release\HandyValidation.UI.pdb" target="runtime\win10-x86\lib\uap10.0.22000\HandyValidation.UI.pdb" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\x86\Release\HandyValidation.UI.pri" target="runtime\win10-x86\lib\uap10.0.22000\HandyValidation.UI.pri" />
+	<file src="..\Code\HandyValidation.UI for UWP 10.0.22000\bin\x86\Release\HandyValidation.UI.XML" target="runtime\win10-x86\lib\uap10.0.22000\HandyValidation.UI.XML" />
+  </files>
+</package>
