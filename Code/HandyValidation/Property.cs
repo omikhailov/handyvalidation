@@ -6,16 +6,34 @@ using System.Threading.Tasks;
 
 namespace HandyValidation
 {
+    /// <summary>
+    /// Class representing property of a view model
+    /// </summary>
+    /// <typeparam name="T">Type of the value</typeparam>
     public class Property<T> : IProperty<T>, IAsyncValue<T>, IValidatable, INotifyPropertyChanged
     {
         private readonly ValidatorState _defaultValidatorState;
 
+        /// <summary>
+        /// Most recent validation task
+        /// </summary>
         protected Task _lastSetOperation;
 
+        /// <summary>
+        /// Cancellation token to cancel last validation task
+        /// </summary>
         protected CancellationTokenSource _cts;
 
+        /// <summary>
+        /// Creates new instance of Property
+        /// </summary>
         public Property() { }
 
+        /// <summary>
+        /// Creates new instance of Property
+        /// </summary>
+        /// <param name="defaultValue">Default value</param>
+        /// <param name="defaultValidatorState">Validation state for the default value</param>
         public Property(T defaultValue, ValidatorState defaultValidatorState = ValidatorState.Valid)
         {
             _value = defaultValue;
@@ -23,8 +41,14 @@ namespace HandyValidation
             _defaultValidatorState = defaultValidatorState;
         }
 
+        /// <summary>
+        /// Backing field for Value property
+        /// </summary>
         protected T _value;
 
+        /// <summary>
+        /// Property value
+        /// </summary>
         public virtual T Value
         {
             get
@@ -36,9 +60,15 @@ namespace HandyValidation
                 _ = SetAsync(value);
             }
         }
-        
+
+        /// <summary>
+        /// Backing field for IsReadonly property
+        /// </summary>
         protected bool _isReadonly;
 
+        /// <summary>
+        /// Gets or sets flag indicating that property is read only
+        /// </summary>
         public virtual bool IsReadonly
         {
             get
@@ -53,8 +83,14 @@ namespace HandyValidation
             }
         }
 
+        /// <summary>
+        /// Backing field for Validator property
+        /// </summary>
         protected IValueValidator<T> _validator;
 
+        /// <summary>
+        /// Validator of this validatable Property
+        /// </summary>
         public virtual IValueValidator<T> Validator
         {
             get
@@ -71,8 +107,14 @@ namespace HandyValidation
             }
         }
 
+        /// <summary>
+        /// Backing field for Metadata property
+        /// </summary>
         protected object _metaData;
 
+        /// <summary>
+        /// Custom data associated with this property
+        /// </summary>
         public virtual object MetaData
         {
             get
@@ -87,20 +129,45 @@ namespace HandyValidation
             }
         }
 
+        /// <summary>
+        /// Delegate firing before the value changes
+        /// </summary>
         public Action<PropertyChangeInfo<T>> ValueChanging;
 
+        /// <summary>
+        /// Asynchronous delegate firing before the value changes
+        /// </summary>
         public Func<PropertyChangeInfo<T>, Task> ValueChangingAsync;
 
+        /// <summary>
+        /// Delegate firing after the value changed
+        /// </summary>
         public Action<PropertyChangeInfo<T>> ValueChanged;
 
+        /// <summary>
+        /// Asynchronous delegate firing after the value changed
+        /// </summary>
         public Func<PropertyChangeInfo<T>, Task> ValueChangedAsync;
 
+        /// <summary>
+        /// Delegate firing on error
+        /// </summary>
         public Action<PropertyChangeInfo<T>, Exception> OnError;
 
+        /// <summary>
+        /// Asynchronous delegate firing on error
+        /// </summary>
         public Func<PropertyChangeInfo<T>, Exception, Task> OnErrorAsync;
 
+        /// <summary>
+        /// Standard PropertyChanged event
+        /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Waits for the last operation on this property, to safely get its most recent value
+        /// </summary>
+        /// <returns>Value</returns>
         public virtual async Task<T> GetAsync()
         {
             if (_lastSetOperation != null && !_lastSetOperation.IsFaulted && !_lastSetOperation.IsCanceled)
@@ -115,6 +182,10 @@ namespace HandyValidation
             return _value;
         }
 
+        /// <summary>
+        /// Waits for the last operation on this property, to reliably set its value
+        /// </summary>
+        /// <returns>Value</returns>
         public virtual async Task SetAsync(T value)
         {
             if (!_isReadonly)
@@ -136,6 +207,12 @@ namespace HandyValidation
             }
         }
 
+        /// <summary>
+        /// Sets the value
+        /// </summary>
+        /// <param name="value">Value to set</param>
+        /// <param name="token">Cancellation token</param>
+        /// <returns>Task</returns>
         protected virtual async Task InternalSetAsync(T value, CancellationToken token)
         {
             var previousValue = _value;
@@ -186,6 +263,9 @@ namespace HandyValidation
             }
         }
 
+        /// <summary>
+        /// Validator of this validatable property
+        /// </summary>
         IValidator IValidatable.Validator
         {
             get
@@ -194,6 +274,11 @@ namespace HandyValidation
             }
         }
 
+        /// <summary>
+        /// Validates last set value of this property
+        /// </summary>
+        /// <param name="token">Cancellation token for validation task</param>
+        /// <returns>Task</returns>
         public virtual async Task Validate(CancellationToken token)
         {
             if (_validator != null)
@@ -206,11 +291,18 @@ namespace HandyValidation
             }
         }
 
+        /// <summary>
+        /// Validates last set value of this property
+        /// </summary>
         public virtual async Task Validate()
         {
             await Validate(CancellationToken.None);
         }
 
+        /// <summary>
+        /// Fires PropertyChanged event
+        /// </summary>
+        /// <param name="property">Property name</param>
         protected void OnPropertyChanged([CallerMemberName] string property = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));

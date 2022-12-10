@@ -206,7 +206,7 @@ And finally, you can look at PhoneNumber property which demonstrates how to hand
 Now let's move from view model layer to the view where **HandyValidation.UI** provides you with following options:
 - **Border** service and its attached properties **IsHighlighted** and **HighlightingBrush**
 - **Style** service with properties **IsApplied** and **Value**
-- **Popup** service with properties: **IsOpen**, **ItemsSource**, **ItemTemplate**, **Background**, **Foreground** and other
+- **Popup** service with properties: **IsOpen**, **ItemsSource**, **ItemTemplate**, **Background**, **Foreground** and others
 
 **Border** allows you to change BorderBrush of control to indicate validation error
 

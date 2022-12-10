@@ -1,21 +1,27 @@
 ﻿using System;
+using System.Globalization;
 using System.Threading;
 
 namespace HandyValidation.Rules
 {
     /// <summary>
-    /// Validation rule checking that string represents TimeSpan
+    /// Validation rule checking that string represents DateTimeOffset value
     /// </summary>
-    public class StringIsTimeSpanValidationRule : IValidationRule<string, object>
+    public class StringIsDateTimeOffsetValidationRule : IValidationRule<string, object>
     {
+        private readonly DateTimeStyles _dateTimeStyles;
+
         private readonly IFormatProvider _formatProvider;
 
         /// <summary>
-        /// Creates new instance of StringIsTimeSpanValidationRule
+        /// Creates new instance of StringIsDateTimeOffsetValidationRule
         /// </summary>
+        /// <param name="dateTimeStyles">DateTimeStyles for parsing</param>
         /// <param name="formatProvider">IFormatProvider for parsing</param>
-        public StringIsTimeSpanValidationRule(IFormatProvider formatProvider = null)
+        public StringIsDateTimeOffsetValidationRule(DateTimeStyles dateTimeStyles = DateTimeStyles.None, IFormatProvider formatProvider = null)
         {
+            _dateTimeStyles = dateTimeStyles;
+
             _formatProvider = formatProvider;
         }
 
@@ -29,7 +35,7 @@ namespace HandyValidation.Rules
         {
             if (value == null) return null;
 
-            return TimeSpan.TryParse(value, _formatProvider, out _) ? null : string.Empty;
+            return DateTimeOffset.TryParse(value, _formatProvider, _dateTimeStyles, out _) ? null : string.Empty;
         }
     }
 }

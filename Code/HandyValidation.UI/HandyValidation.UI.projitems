@@ -3,15 +3,15 @@
   <PropertyGroup>
     <MSBuildAllProjects Condition="'$(MSBuildVersion)' == '' Or '$(MSBuildVersion)' &lt; '16.0'">$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
     <HasSharedItems>true</HasSharedItems>
-    <SharedGUID>3de48c41-17ac-4a74-8f43-60331c71a985</SharedGUID>
+    <SharedGUID>e8fae24d-c89c-4142-8c82-a41efd4eaa83</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>MvvmValidation.UI</Import_RootNamespace>
+    <Import_RootNamespace>HandyValidation.UI</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Border.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContentDialog.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Popup.partial.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Style.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Border.cs" />
   </ItemGroup>
 </Project>

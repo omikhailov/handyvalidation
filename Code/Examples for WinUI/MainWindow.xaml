@@ -33,6 +33,7 @@
                         <TextBlock Grid.Column="1" Text="{x:Bind}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,0,8,0" />
                     </Grid>
                 </DataTemplate>
+                <ThemeShadow x:Name="DefaultShadow" />
             </ResourceDictionary>
         </Grid.Resources>
 

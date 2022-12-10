@@ -5,14 +5,31 @@ using System.Threading.Tasks;
 
 namespace HandyValidation
 {
+    /// <summary>
+    /// Validator for checking arbitrary rules and conditions
+    /// </summary>
     public class CustomValidator : Validator, IValidator, IValidatable
     {
+        /// <summary>
+        /// Validation function
+        /// </summary>
         protected Func<ObservableCollection<object>, CancellationToken, Task> _function;
 
+        /// <summary>
+        /// Most recent validation task
+        /// </summary>
         protected Task _lastValidateOperation;
 
+        /// <summary>
+        /// Cancellation token to cancel last validation task
+        /// </summary>
         protected CancellationTokenSource _cts;
 
+        /// <summary>
+        /// Creates a new instance of CustomValidator
+        /// </summary>
+        /// <param name="function">Validation function</param>
+        /// <exception cref="ArgumentNullException">Validation function cannot be null</exception>
         public CustomValidator(Func<ObservableCollection<object>, CancellationToken, Task> function)
         {
             if (function == null) throw new ArgumentNullException(nameof(function));
@@ -20,6 +37,9 @@ namespace HandyValidation
             _function = function;
         }
 
+        /// <summary>
+        /// Validator of this validatable which is CustomValidator itself
+        /// </summary>
         public IValidator Validator
         {
             get
@@ -28,6 +48,11 @@ namespace HandyValidation
             }
         }
 
+        /// <summary>
+        /// Performs validation
+        /// </summary>
+        /// <param name="cancellationToken">Cancellation token for validation task</param>
+        /// <returns>Task</returns>
         public virtual async Task Validate(CancellationToken cancellationToken)
         {
             var token = cancellationToken;
@@ -57,11 +82,20 @@ namespace HandyValidation
             await _lastValidateOperation;
         }
 
+        /// <summary>
+        /// Performs validation
+        /// </summary>
+        /// <returns>Task</returns>
         public virtual async Task Validate()
         { 
             await Validate(CancellationToken.None);
         }
 
+        /// <summary>
+        /// Calls validation function and sets state
+        /// </summary>
+        /// <param name="token">Cancellation token</param>
+        /// <returns>Task</returns>
         protected virtual async Task InternalValidate(CancellationToken token)
         {
             Reset();

@@ -22,6 +22,11 @@ namespace HandyValidation.UI
             if (popup != null) popup.IsOpen = isOpen;
         }
 
+        private static void SetPopupShadow(FrameworkElement element, XamlPopup popup)
+        {
+            ;
+        }
+
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
 
         private static void SetPlacement(XamlPopup popup, FrameworkElement element)

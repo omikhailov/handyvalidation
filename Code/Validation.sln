@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyValidation.Resources f
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandyValidation.Resources for WinUI", "HandyValidation.Resources for WinUI\HandyValidation.Resources for WinUI.csproj", "{4A11BA43-3B51-4112-BB0C-A11EC41CCFAC}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "HandyValidation.UI Shared", "HandyValidation.UI\HandyValidation.UI Shared.shproj", "{3DE48C41-17AC-4A74-8F43-60331C71A985}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyValidation.UI for UWP 10.0.16299", "HandyValidation.UI for UWP 10.0.16299\HandyValidation.UI for UWP 10.0.16299.csproj", "{A5896998-3D3F-4684-B099-EE8AE194E705}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HandyValidation.UI for WinUI", "HandyValidation.UI for WinUI\HandyValidation.UI for WinUI.csproj", "{B0835BCF-0916-445B-9539-FEE33CE11B85}"
@@ -28,6 +26,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HandyValidation", "HandyValidation", "{F31977B2-26BE-42E9-B106-8F4455446CBB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyValidation.UI for UWP 10.0.18362", "HandyValidation.UI for UWP 10.0.18362\HandyValidation.UI for UWP 10.0.18362.csproj", "{F8316EA7-4D89-4528-86CB-51342CC3E346}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "HandyValidation.UI", "HandyValidation.UI\HandyValidation.UI.shproj", "{E8FAE24D-C89C-4142-8C82-A41EFD4EAA83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -251,11 +251,11 @@ Global
 		{171BEB6B-5517-4BD9-A9E9-01E898F00FAC} = {F31977B2-26BE-42E9-B106-8F4455446CBB}
 		{464B2362-C2FB-4926-A391-A9BFD6A48564} = {B1DF5FD2-C6E8-4B46-A2A6-4B24E443F572}
 		{4A11BA43-3B51-4112-BB0C-A11EC41CCFAC} = {B1DF5FD2-C6E8-4B46-A2A6-4B24E443F572}
-		{3DE48C41-17AC-4A74-8F43-60331C71A985} = {0ABAB922-C37D-4129-ADA6-41C30A372042}
 		{A5896998-3D3F-4684-B099-EE8AE194E705} = {0ABAB922-C37D-4129-ADA6-41C30A372042}
 		{B0835BCF-0916-445B-9539-FEE33CE11B85} = {0ABAB922-C37D-4129-ADA6-41C30A372042}
 		{2FF1A70E-1A7C-4CDC-9173-A0903C19B35E} = {0ABAB922-C37D-4129-ADA6-41C30A372042}
 		{F8316EA7-4D89-4528-86CB-51342CC3E346} = {0ABAB922-C37D-4129-ADA6-41C30A372042}
+		{E8FAE24D-C89C-4142-8C82-A41EFD4EAA83} = {0ABAB922-C37D-4129-ADA6-41C30A372042}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EBC548EF-E21E-49CD-A819-76684BF69174}
@@ -264,6 +264,7 @@ Global
 		HandyValidation.UI\HandyValidation.UI.projitems*{2ff1a70e-1a7c-4cdc-9173-a0903c19b35e}*SharedItemsImports = 4
 		HandyValidation.UI\HandyValidation.UI.projitems*{a5896998-3d3f-4684-b099-ee8ae194e705}*SharedItemsImports = 4
 		HandyValidation.UI\HandyValidation.UI.projitems*{b0835bcf-0916-445b-9539-fee33ce11b85}*SharedItemsImports = 5
+		HandyValidation.UI\HandyValidation.UI.projitems*{e8fae24d-c89c-4142-8c82-a41efd4eaa83}*SharedItemsImports = 13
 		HandyValidation.UI\HandyValidation.UI.projitems*{f8316ea7-4d89-4528-86cb-51342cc3e346}*SharedItemsImports = 4
 	EndGlobalSection
 EndGlobal

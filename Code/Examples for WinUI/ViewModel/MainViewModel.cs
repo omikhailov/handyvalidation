@@ -94,7 +94,7 @@ namespace Examples.ViewModel
             PropertiesValidator = new CompositeValidator(FirstName, LastName, Dob, PhoneNumber, Email, Password);
 
             FormValidator = new CompositeValidator(PropertiesValidator, ConfirmPasswordValidator, ApiAvailabilityValidator);
-
+            
             SubmitButtonWatcher = new ValidationStateWatcher(FirstName, LastName, Dob, PhoneNumber, Email, Password, ConfirmPasswordValidator) { HasIssues = true };
         }
 

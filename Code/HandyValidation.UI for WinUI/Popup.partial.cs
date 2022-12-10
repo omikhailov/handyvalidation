@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Media;
 using XamlPopup = Microsoft.UI.Xaml.Controls.Primitives.Popup;
 
 namespace HandyValidation.UI
@@ -10,16 +11,29 @@ namespace HandyValidation.UI
     {
         #region Placement
 
+        /// <summary>
+        /// Gets the value of PlacementProperty
+        /// </summary>
+        /// <param name="d">Target object</param>
+        /// <returns>Placement mode</returns>
         public static PopupPlacementMode GetPlacement(DependencyObject d)
         {
             return (PopupPlacementMode)d.GetValue(PlacementProperty);
         }
 
+        /// <summary>
+        /// Sets the value of PlacementProperty
+        /// </summary>
+        /// <param name="d">Target object</param>
+        /// <param name="value">New placement mode</param>
         public static void SetPlacement(DependencyObject d, PopupPlacementMode value)
         {
             d.SetValue(PlacementProperty, value);
         }
 
+        /// <summary>
+        /// Popup placement mode
+        /// </summary>
         public static DependencyProperty PlacementProperty { get; } = DependencyProperty.RegisterAttached(nameof(PlacementProperty), typeof(PopupPlacementMode), typeof(Popup), new PropertyMetadata(PopupPlacementMode.TopEdgeAlignedRight, PlacementChanged));
 
         private static void PlacementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -31,6 +45,48 @@ namespace HandyValidation.UI
         }
 
         #endregion
+
+        #region Shadow
+
+        /// <summary>
+        /// Gets the value of ShadowProperty
+        /// </summary>
+        /// <param name="d">Target object</param>
+        /// <returns>Shadow</returns>
+        public static Shadow GetShadow(DependencyObject d)
+        {
+            return (Shadow)d.GetValue(ShadowProperty);
+        }
+
+        /// <summary>
+        /// Sets the value of ShadowProperty
+        /// </summary>
+        /// <param name="d">Target object</param>
+        /// <param name="value">New shadow</param>
+        public static void SetShadow(DependencyObject d, Shadow value)
+        {
+            d.SetValue(ShadowProperty, value);
+        }
+
+        /// <summary>
+        /// Popup shadow
+        /// </summary>
+        public static DependencyProperty ShadowProperty { get; } = DependencyProperty.RegisterAttached(nameof(ShadowProperty), typeof(Shadow), typeof(Popup), new PropertyMetadata(null, ShadowChanged));
+
+        private static void ShadowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (_state.TryGetValue(d, out var state))
+            {
+                state.Popup.Shadow = (Shadow)e.NewValue;
+            }
+        }
+
+        #endregion
+
+        private static void SetPopupShadow(FrameworkElement element, XamlPopup popup)
+        {
+            popup.Shadow = GetShadow(element);
+        }
 
         private static async Task SetXamlRoot(FrameworkElement element, XamlPopup popup)
         {

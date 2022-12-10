@@ -1,22 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace HandyValidation
 {
+    /// <summary>
+    /// Validator for the set of other validators and properties
+    /// </summary>
     public class CompositeValidator : Validator, IValidator, IValidatable
     {
+        /// <summary>
+        /// Validatable items
+        /// </summary>
         protected IValidatable[] _items;
 
+        /// <summary>
+        /// Most recent validation task
+        /// </summary>
         protected Task _lastValidateOperation;
 
+        /// <summary>
+        /// Cancellation token to cancel last validation task
+        /// </summary>
         protected CancellationTokenSource _cts;
 
+        /// <summary>
+        /// Creates a new instance of CompositeValidator
+        /// </summary>
+        /// <param name="items">Validatable items such as properties and validators</param>
+        /// <exception cref="ArgumentNullException">Validatable items array cannot be null</exception>
         public CompositeValidator(params IValidatable[] items)
         {
             if (items == null) throw new ArgumentNullException(nameof(items));
@@ -24,6 +38,11 @@ namespace HandyValidation
             _items = items;
         }
 
+        /// <summary>
+        /// Creates a new instance of CompositeValidator
+        /// </summary>
+        /// <param name="items">Validatable items such as properties and validators</param>
+        /// <exception cref="ArgumentNullException">Validatable items sequence cannot be null</exception>
         public CompositeValidator(IEnumerable<IValidatable> items)
         {
             if (items == null) throw new ArgumentNullException(nameof(items));
@@ -31,6 +50,9 @@ namespace HandyValidation
             _items = items.ToArray();
         }
 
+        /// <summary>
+        /// Validator of this validatable which is CompositeValidator itself
+        /// </summary>
         public IValidator Validator
         {
             get
@@ -39,6 +61,11 @@ namespace HandyValidation
             }
         }
 
+        /// <summary>
+        /// Validates all validatable items
+        /// </summary>
+        /// <param name="cancellationToken">Cancellation token for validation task</param>
+        /// <returns>Task</returns>
         public virtual async Task Validate(CancellationToken cancellationToken)
         {
             var token = cancellationToken;
@@ -68,11 +95,20 @@ namespace HandyValidation
             await _lastValidateOperation;
         }
 
+        /// <summary>
+        /// Validates all validatable items
+        /// </summary>
+        /// <returns>Task</returns>
         public virtual async Task Validate()
         {
             await Validate(CancellationToken.None);
         }
 
+        /// <summary>
+        /// Goes through all validatable items and calls their Validate()
+        /// </summary>
+        /// <param name="token"></param>
+        /// <returns></returns>
         protected virtual async Task InternalValidate(CancellationToken token)
         {
             Reset();
