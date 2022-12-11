@@ -104,7 +104,7 @@ namespace HandyValidation
 
             HasIssues = false;
 
-            if (State != ValidatorState.NotSet) State = ValidatorState.Valid;
+            State = ValidatorState.NotSet;
         }
 
         /// <summary>

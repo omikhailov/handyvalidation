@@ -45,7 +45,8 @@ HV allows you to significantly simplify and structure input validation code in y
         {
             Validator = new RulesValidator<string>(
                 Rule.NotNullOrWhiteSpace().WithMessage("Please enter email address"),
-                Rule.Email().WithMessage("Email address is incorrect"))
+                Rule.Email().WithMessage("Email address is incorrect")),
+            Delay = TimeSpan.FromSeconds(0.8)
         };
 
         public Property<string> Password = new()
@@ -164,6 +165,7 @@ HV allows you to significantly simplify and structure input validation code in y
                          validation:Popup.ItemsSource="{x:Bind ViewModel.PhoneNumber.Validator.Issues}" />
 
                 <TextBox Header="Email" Text="{x:Bind ViewModel.Email.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                         validation:Border.IsHighlighted="{x:Bind ViewModel.Email.Validator.HasIssues, Mode=OneWay}"
                          validation:Popup.IsOpen="{x:Bind ViewModel.Email.Validator.HasIssues, Mode=OneWay}"
                          validation:Popup.ItemsSource="{x:Bind ViewModel.Email.Validator.Issues}" />
 
@@ -201,7 +203,7 @@ In addition to value validators, there are also validators that are not associat
 
 Predefined validation rules do not return error messages, it is up to you to define them. There are several extension methods allowing you to add static message or use a resource strings from the **.resx** files: **WithMessage()**, **WithFormattedMessage()**, **WithResourceString()**, **WithFormattedResourceString()**. The last two groups of methods are in **HandyValidation.Resources** package.
 
-And finally, you can look at PhoneNumber property which demonstrates how to handle moments when value of the property changes. In this example, **ValueChanged** delegate takes the phone number entered by user and saves the value without + - and () symbols into **Property.Metadata**, which is a field of type object where you can store whatever you want. In addition to ValueChanged there is also **ValueChanging** and asynchronous **ValueChangingAsync** and **ValueChangedAsync**. It is important to note that for asynchronous versions, Property passes the **CancellationToken** which will become cancelled if user will continue typing and your async code will still be running at the moment when value changes once again.
+And finally, you can look at PhoneNumber and Email properties demonstrating some minor features. For Email, there is an input delay, and in the case of PhoneNumber, you can see how to handle moments when the property value changes. In this example, **ValueChanged** delegate takes the phone number entered by user and saves the value without + - and () symbols into **Property.Metadata**, which is a field of type object where you can store whatever you want. In addition to ValueChanged there is also **ValueChanging** and asynchronous **ValueChangingAsync** and **ValueChangedAsync**. It is important to note that for asynchronous versions, Property passes the **CancellationToken** which will become cancelled if user will continue typing and your async code will still be running at the moment when value changes once again.
 
 Now let's move from view model layer to the view where **HandyValidation.UI** provides you with following options:
 - **Border** service and its attached properties **IsHighlighted** and **HighlightingBrush**

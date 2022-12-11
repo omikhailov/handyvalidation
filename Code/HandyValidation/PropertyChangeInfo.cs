@@ -9,7 +9,7 @@ namespace HandyValidation
     public struct PropertyChangeInfo<T>
     {
         /// <summary>
-        /// Create new PropertyChangeInfo
+        /// Creates new PropertyChangeInfo
         /// </summary>
         /// <param name="property">Property instance</param>
         /// <param name="oldValue">Previous value</param>

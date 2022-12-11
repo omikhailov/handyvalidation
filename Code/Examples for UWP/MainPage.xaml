@@ -24,14 +24,14 @@
                 <Style x:Key="InvalidLastName" TargetType="TextBox">
                     <Setter Property="Background" Value="LightPink" />
                 </Style>
-                <DataTemplate x:Key="CustomValidationPopupItem" x:DataType="x:Object">
+                <DataTemplate x:Key="CustomValidationPopupItem">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <SymbolIcon Symbol="Important" Height="16" VerticalAlignment="Top" Margin="0,6,8,0" />
-                        <TextBlock Grid.Column="1" Text="{x:Bind}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,0,8,0" />
+                        <TextBlock Grid.Column="1" Text="{Binding}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,0,8,0" />
                     </Grid>
                 </DataTemplate>
             </ResourceDictionary>
@@ -59,6 +59,7 @@
                          validation:Popup.ItemsSource="{x:Bind ViewModel.PhoneNumber.Validator.Issues}" />
 
                 <TextBox Header="Email" Text="{x:Bind ViewModel.Email.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                         validation:Border.IsHighlighted="{x:Bind ViewModel.Email.Validator.HasIssues, Mode=OneWay}"
                          validation:Popup.IsOpen="{x:Bind ViewModel.Email.Validator.HasIssues, Mode=OneWay}"
                          validation:Popup.ItemsSource="{x:Bind ViewModel.Email.Validator.Issues}" />
 

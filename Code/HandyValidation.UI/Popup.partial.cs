@@ -344,7 +344,7 @@ namespace HandyValidation.UI
         /// <summary>
         /// Corner radius of popup's border
         /// </summary>
-        public static DependencyProperty CornerRadiusProperty { get; } = DependencyProperty.RegisterAttached(nameof(CornerRadiusProperty), typeof(CornerRadius), typeof(Popup), new PropertyMetadata(new CornerRadius(12), CornerRadiusChanged));
+        public static DependencyProperty CornerRadiusProperty { get; } = DependencyProperty.RegisterAttached(nameof(CornerRadiusProperty), typeof(CornerRadius), typeof(Popup), new PropertyMetadata(new CornerRadius(8), CornerRadiusChanged));
 
         private static void CornerRadiusChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

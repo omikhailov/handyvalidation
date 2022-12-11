@@ -47,7 +47,8 @@ namespace Examples.ViewModel
         {
             Validator = new RulesValidator<string>(
                 Rule.NotNullOrWhiteSpace().WithMessage("Please enter email address"),
-                Rule.Email().WithMessage("Email address is incorrect"))
+                Rule.Email().WithMessage("Email address is incorrect")),
+            Delay = TimeSpan.FromSeconds(0.8)
         };
 
         public Property<string> Password = new Property<string>()

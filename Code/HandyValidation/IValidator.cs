@@ -30,7 +30,7 @@ namespace HandyValidation
         object FirstIssue { get; }
 
         /// <summary>
-        /// Resets validation results
+        /// Resets validation results. Changes State to NotSet.
         /// </summary>
         void Reset();
     }

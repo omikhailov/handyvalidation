@@ -58,6 +58,7 @@
                          validation:Popup.ItemsSource="{x:Bind ViewModel.PhoneNumber.Validator.Issues}" />
 
                 <TextBox Header="Email" Text="{x:Bind ViewModel.Email.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                         validation:Border.IsHighlighted="{x:Bind ViewModel.Email.Validator.HasIssues, Mode=OneWay}"
                          validation:Popup.IsOpen="{x:Bind ViewModel.Email.Validator.HasIssues, Mode=OneWay}"
                          validation:Popup.ItemsSource="{x:Bind ViewModel.Email.Validator.Issues}" />
 

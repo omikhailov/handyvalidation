@@ -108,6 +108,28 @@ namespace HandyValidation
         }
 
         /// <summary>
+        /// Backing field for Delay property
+        /// </summary>
+        protected TimeSpan _delay;
+
+        /// <summary>
+        /// Assignment delay
+        /// </summary>
+        public TimeSpan Delay
+        {
+            get
+            {
+                return _delay;
+            }
+            set
+            {
+                _delay = value;
+
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
         /// Backing field for Metadata property
         /// </summary>
         protected object _metaData;
@@ -128,6 +150,16 @@ namespace HandyValidation
                 OnPropertyChanged();
             }
         }
+
+        /// <summary>
+        /// Delegate firing before assignmet delay starts
+        /// </summary>
+        public Action<PropertyChangeInfo<T>> DelayStarting;
+
+        /// <summary>
+        /// Delegate firing before assignmet delay starts
+        /// </summary>
+        public Func<PropertyChangeInfo<T>, Task> DelayStartingAsync;
 
         /// <summary>
         /// Delegate firing before the value changes
@@ -217,13 +249,37 @@ namespace HandyValidation
         {
             var previousValue = _value;
             
+            var changeInfo = new PropertyChangeInfo<T>(this, previousValue, value, token);
+
             try
             {
+                if (_delay > TimeSpan.Zero)
+                {
+                    if (_validator.State == ValidatorState.Invalid) _validator.Reset();
+
+                    var delay = _delay;
+
+                    if (DelayStarting != null || DelayStartingAsync != null) 
+                    {
+                        var startedAt = DateTime.UtcNow;
+
+                        if (DelayStarting != null) DelayStarting(changeInfo);
+
+                        if (DelayStartingAsync != null) await DelayStartingAsync(changeInfo);
+
+                        var timePassed = DateTime.UtcNow - startedAt;
+
+                        delay = timePassed < delay ? delay - timePassed : TimeSpan.Zero;
+                    }
+
+                    if (delay > TimeSpan.Zero) await Task.Delay(delay, token);
+
+                    if (token.IsCancellationRequested) return;
+                }
+
                 if (_validator != null) await _validator.Validate(value, token);
 
                 if (token.IsCancellationRequested) return;
-
-                var changeInfo = new PropertyChangeInfo<T>(this, previousValue, value, token);
 
                 if (ValueChanging != null) ValueChanging(changeInfo);
 
@@ -254,9 +310,9 @@ namespace HandyValidation
                 {
                     try
                     {
-                        if (OnError != null) OnError(new PropertyChangeInfo<T>(this, previousValue, value, token), e);
+                        if (OnError != null) OnError(changeInfo, e);
 
-                        if (OnErrorAsync != null) await OnErrorAsync(new PropertyChangeInfo<T>(this, previousValue, value, token), e);
+                        if (OnErrorAsync != null) await OnErrorAsync(changeInfo, e);
                     }
                     catch { }
                 }
