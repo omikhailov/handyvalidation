@@ -220,7 +220,7 @@ Now let's move from view model layer to the view where **HandyValidation.UI** pr
 
 And, finally, **Popup** service allows you to associate validation Popup with a control
 
-![image](https://user-images.githubusercontent.com/75426711/205995330-fd6c0f31-7f13-4dd2-bfaf-895607d8d52d.png)
+![image](https://user-images.githubusercontent.com/75426711/207086233-75e7c820-50de-4a3e-8a97-ef82b1836bfb.png)
 
 In addition to these three services, there is also **ContentDialog** which property **IsOpen** makes ContentDialog able to be used with MVVM design and bindings
 
