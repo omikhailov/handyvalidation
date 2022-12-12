@@ -12,17 +12,32 @@ namespace HandyValidation.UI
     {
         #region Shadow
 
+        private static Shadow DefaultShadow = new ThemeShadow();
+
+        /// <summary>
+        /// Gets the value of ShadowProperty
+        /// </summary>
+        /// <param name="d">Target object</param>
+        /// <returns>Shadow</returns>
         public static Shadow GetShadow(DependencyObject d)
         {
             return (Shadow)d.GetValue(ShadowProperty);
         }
 
+        /// <summary>
+        /// Sets the value of ShadowProperty
+        /// </summary>
+        /// <param name="d">Target object</param>
+        /// <param name="value">New shadow</param>
         public static void SetShadow(DependencyObject d, Shadow value)
         {
             d.SetValue(ShadowProperty, value);
         }
 
-        public static DependencyProperty ShadowProperty { get; } = DependencyProperty.RegisterAttached(nameof(ShadowProperty), typeof(Shadow), typeof(Popup), new PropertyMetadata(null, ShadowChanged));
+        /// <summary>
+        /// Popup shadow
+        /// </summary>
+        public static DependencyProperty ShadowProperty { get; } = DependencyProperty.RegisterAttached(nameof(ShadowProperty), typeof(Shadow), typeof(Popup), new PropertyMetadata(DefaultShadow, ShadowChanged));
 
         private static void ShadowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -37,6 +52,8 @@ namespace HandyValidation.UI
         private static void SetPopupShadow(FrameworkElement element, XamlPopup popup)
         {
             popup.Shadow = GetShadow(element);
+
+            popup.Translation = new System.Numerics.Vector3(0, 0, 32);
         }
 
         private static async Task SetXamlRoot(FrameworkElement element, XamlPopup popup)

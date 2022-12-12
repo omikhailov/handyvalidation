@@ -12,7 +12,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.16299.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -163,9 +163,9 @@
       <Project>{464b2362-c2fb-4926-a391-a9bfd6a48564}</Project>
       <Name>HandyValidation.Resources for UWP 10.0.16299</Name>
     </ProjectReference>
-    <ProjectReference Include="..\HandyValidation.UI for UWP 10.0.16299\HandyValidation.UI for UWP 10.0.16299.csproj">
-      <Project>{a5896998-3d3f-4684-b099-ee8ae194e705}</Project>
-      <Name>HandyValidation.UI for UWP 10.0.16299</Name>
+    <ProjectReference Include="..\HandyValidation.UI for UWP 10.0.18362\HandyValidation.UI for UWP 10.0.18362.csproj">
+      <Project>{f8316ea7-4d89-4528-86cb-51342cc3e346}</Project>
+      <Name>HandyValidation.UI for UWP 10.0.18362</Name>
     </ProjectReference>
     <ProjectReference Include="..\HandyValidation\HandyValidation.csproj">
       <Project>{171beb6b-5517-4bd9-a9e9-01e898f00fac}</Project>
