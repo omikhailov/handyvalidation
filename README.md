@@ -29,7 +29,7 @@ HV allows you to significantly simplify and structure input validation code in y
         public Property<DateTimeOffset> Dob = new(DateTimeOffset.Now, ValidatorState.Invalid)
         {
             Validator = new RulesValidator<DateTimeOffset>(
-                Rule.Range(DateTimeOffset.Now.AddYears(-60), DateTimeOffset.Now.AddYears(-16)).WithMessage("The borrower must be at least 21 and no older than 60"))
+                Rule.Range(DateTimeOffset.Now.AddYears(-60), DateTimeOffset.Now.AddYears(-21)).WithMessage("The borrower must be at least 21 and no older than 60"))
         };
 
         public Property<string> PhoneNumber = new()

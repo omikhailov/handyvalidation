@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading;
@@ -12,12 +13,25 @@ namespace HandyValidation
     /// <typeparam name="T">Type of the value</typeparam>
     public class Property<T> : IProperty<T>, IAsyncValue<T>, IValidatable, INotifyPropertyChanged
     {
-        private readonly ValidatorState _defaultValidatorState;
+        /// <summary>
+        /// Default EqualityComparer for T
+        /// </summary>
+        protected static EqualityComparer<T> _equalityComparer = EqualityComparer<T>.Default;
+
+        /// <summary>
+        /// Default state of the Validator that was passed as parameter in constructor
+        /// </summary>
+        protected readonly ValidatorState _defaultValidatorState;
 
         /// <summary>
         /// Most recent validation task
         /// </summary>
         protected Task _lastSetOperation;
+
+        /// <summary>
+        /// The value assigned during _lastSetOperation 
+        /// </summary>
+        protected T _lastSetValue;
 
         /// <summary>
         /// Cancellation token to cancel last validation task
@@ -67,7 +81,7 @@ namespace HandyValidation
         protected bool _isReadonly;
 
         /// <summary>
-        /// Gets or sets flag indicating that property is read only
+        /// Flag indicating that property is read only
         /// </summary>
         public virtual bool IsReadonly
         {
@@ -77,9 +91,37 @@ namespace HandyValidation
             }
             set
             {
-                _isReadonly = value;
+                if (_isReadonly != value)
+                {
+                    _isReadonly = value;
 
-                OnPropertyChanged();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Backing field for IsDirty property
+        /// </summary>
+        protected bool _isDirty = true;
+
+        /// <summary>
+        /// Flag indicating that Value has not yet been assigned
+        /// </summary>
+        public virtual bool IsDirty
+        {
+            get
+            {
+                return _isDirty;
+            }
+            protected set
+            {
+                if (_isDirty != value)
+                {
+                    _isDirty = value;
+
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -99,11 +141,14 @@ namespace HandyValidation
             }
             set
             {
-                _validator = value;
+                if (_validator != value)
+                {
+                    _validator = value;
 
-                if (_validator != null) _validator.State = _defaultValidatorState;
+                    if (_validator != null && _isDirty) _validator.State = _defaultValidatorState;
 
-                OnPropertyChanged();
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -123,9 +168,12 @@ namespace HandyValidation
             }
             set
             {
-                _delay = value;
+                if (_delay != value)
+                {
+                    _delay = value;
 
-                OnPropertyChanged();
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -145,9 +193,12 @@ namespace HandyValidation
             }
             set
             {
-                _metaData = value;
+                if (_metaData != value)
+                {
+                    _metaData = value;
 
-                OnPropertyChanged();
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -222,18 +273,33 @@ namespace HandyValidation
         {
             if (!_isReadonly)
             {
-                if (_lastSetOperation != null)
+                if (!_isDirty && _equalityComparer.Equals(_lastSetValue, value)) return;
+
+                if (_cts != null)
                 {
-                    _cts?.Cancel();
+                    _cts.Cancel();
 
-                    await _lastSetOperation;
+                    if (_lastSetOperation != null) await _lastSetOperation;
                 }
-
-                _cts?.Dispose();
 
                 _cts = new CancellationTokenSource();
 
-                _lastSetOperation = InternalSetAsync(value, _cts.Token);
+                _lastSetValue = value;
+
+                _lastSetOperation = InternalSetAsync(value, _cts.Token).ContinueWith(t => 
+                {
+                    _cts?.Dispose();
+
+                    _cts = null;
+
+                    if (t.Result)
+                    {
+                        OnPropertyChanged(nameof(Value));
+
+                        IsDirty = false;
+                    }
+                }, 
+                TaskScheduler.FromCurrentSynchronizationContext());
                 
                 await _lastSetOperation;
             }
@@ -245,10 +311,10 @@ namespace HandyValidation
         /// <param name="value">Value to set</param>
         /// <param name="token">Cancellation token</param>
         /// <returns>Task</returns>
-        protected virtual async Task InternalSetAsync(T value, CancellationToken token)
+        protected virtual async Task<bool> InternalSetAsync(T value, CancellationToken token)
         {
             var previousValue = _value;
-            
+
             var changeInfo = new PropertyChangeInfo<T>(this, previousValue, value, token);
 
             try
@@ -274,18 +340,18 @@ namespace HandyValidation
 
                     if (delay > TimeSpan.Zero) await Task.Delay(delay, token);
 
-                    if (token.IsCancellationRequested) return;
+                    if (token.IsCancellationRequested) return false;
                 }
-
-                if (_validator != null) await _validator.Validate(value, token);
-
-                if (token.IsCancellationRequested) return;
 
                 if (ValueChanging != null) ValueChanging(changeInfo);
 
                 if (ValueChangingAsync != null) await ValueChangingAsync(changeInfo);
 
-                if (token.IsCancellationRequested) return;
+                if (token.IsCancellationRequested) return false;
+
+                if (_validator != null) await _validator.Validate(value, token);
+
+                if (token.IsCancellationRequested) return false;
 
                 _value = value;
 
@@ -297,15 +363,15 @@ namespace HandyValidation
                 {
                     _value = previousValue;
 
-                    return;
+                    return false;
                 }
 
-                OnPropertyChanged(nameof(Value));
+                return true;
             }
             catch (Exception e)
             {
                 _value = previousValue;
-
+                
                 if (!(e is OperationCanceledException))
                 {
                     try
@@ -316,6 +382,8 @@ namespace HandyValidation
                     }
                     catch { }
                 }
+
+                return false;
             }
         }
 
