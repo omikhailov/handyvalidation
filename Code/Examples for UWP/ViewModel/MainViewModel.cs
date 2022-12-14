@@ -31,7 +31,7 @@ namespace Examples.ViewModel
         public Property<DateTimeOffset> Dob = new Property<DateTimeOffset>(DateTimeOffset.Now, ValidatorState.Invalid)
         {
             Validator = new RulesValidator<DateTimeOffset>(
-                Rule.Range(DateTimeOffset.Now.AddYears(-60), DateTimeOffset.Now.AddYears(-16)).WithMessage("The borrower must be at least 21 and no older than 60"))
+                Rule.Range(DateTimeOffset.Now.AddYears(-60), DateTimeOffset.Now.AddYears(-21)).WithMessage("The borrower must be at least 21 and no older than 60"))
         };
 
         public Property<string> PhoneNumber = new Property<string>()
@@ -90,7 +90,7 @@ namespace Examples.ViewModel
         {
             ConfirmPasswordValidator = new CustomValidator(ValidatePasswordsMatch);
 
-            ConfirmPassword.ValueChanged = async info => { await ConfirmPasswordValidator.Validate(info.CancellationToken); };
+            ConfirmPassword.ValueChangedAsync = async info => { await ConfirmPasswordValidator.Validate(info.CancellationToken); };
 
             PropertiesValidator = new CompositeValidator(FirstName, LastName, Dob, PhoneNumber, Email, Password);
 

@@ -88,7 +88,7 @@ HV allows you to significantly simplify and structure input validation code in y
         {
             ConfirmPasswordValidator = new CustomValidator(ValidatePasswordsMatch);
 
-            ConfirmPassword.ValueChanged = async info => { await ConfirmPasswordValidator.Validate(info.CancellationToken); };
+            ConfirmPassword.ValueChangedAsync = async info => { await ConfirmPasswordValidator.Validate(info.CancellationToken); };
 
             PropertiesValidator = new CompositeValidator(FirstName, LastName, Dob, PhoneNumber, Email, Password);
 

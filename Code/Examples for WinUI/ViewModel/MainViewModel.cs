@@ -90,7 +90,7 @@ namespace Examples.ViewModel
         {
             ConfirmPasswordValidator = new CustomValidator(ValidatePasswordsMatch);
 
-            ConfirmPassword.ValueChanged = async info => { await ConfirmPasswordValidator.Validate(info.CancellationToken); };
+            ConfirmPassword.ValueChangedAsync = async info => { await ConfirmPasswordValidator.Validate(info.CancellationToken); };
 
             PropertiesValidator = new CompositeValidator(FirstName, LastName, Dob, PhoneNumber, Email, Password);
 
