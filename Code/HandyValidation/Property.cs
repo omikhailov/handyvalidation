@@ -321,7 +321,7 @@ namespace HandyValidation
             {
                 if (_delay > TimeSpan.Zero)
                 {
-                    if (_validator.State == ValidatorState.Invalid) _validator.Reset();
+                    if (_validator != null && _validator.State == ValidatorState.Invalid) _validator.Reset();
 
                     var delay = _delay;
 
