@@ -1,6 +1,8 @@
-﻿using System;
+﻿using HandyValidation.UI.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using Windows.Media.Audio;
 
 #if UWP
 using Windows.UI;
@@ -24,14 +26,21 @@ namespace HandyValidation.UI
     /// </summary>
     public sealed class Border : DependencyObject
     {
-        private static Dictionary<DependencyObject, Brush> NormalBrush = new Dictionary<DependencyObject, Brush>();
+        static Border()
+        {
+            ResourceHelper.RegisterLibraryResources();
+            
+            var highlightingBrushPropertyMetadata = PropertyMetadata.Create(ResourceHelper.GetDefaultValueCallbackFor("ValidationDefaultBorderHighlightingBrush"), HighlightingBrushChanged);
 
-        private static readonly Brush DefaultHighlightingBrush = new SolidColorBrush(Color.FromArgb(255, 196, 43, 28));
+            HighlightingBrushProperty = DependencyProperty.RegisterAttached("HighlightingBrush", typeof(Brush), typeof(Border), highlightingBrushPropertyMetadata);
+        }
+
+        private static Dictionary<DependencyObject, Brush> NormalBrush = new Dictionary<DependencyObject, Brush>();
 
         /// <summary>
         /// Highlighting brush
         /// </summary>
-        public static DependencyProperty HighlightingBrushProperty { get; } = DependencyProperty.RegisterAttached("HighlightingBrush", typeof(Brush), typeof(Border), new PropertyMetadata(DefaultHighlightingBrush, HighlitingBrushChanged));
+        public static DependencyProperty HighlightingBrushProperty { get; }
 
         /// <summary>
         /// Gets the value of HighlightingBrushProperty
@@ -53,7 +62,7 @@ namespace HandyValidation.UI
             d.SetValue(HighlightingBrushProperty, value);
         }
 
-        private static void HighlitingBrushChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void HighlightingBrushChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (e.OldValue != null && e.OldValue.Equals(e.NewValue)) return;
 

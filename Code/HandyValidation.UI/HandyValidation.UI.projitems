@@ -11,7 +11,14 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Border.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ContentDialog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\ResourceHelper.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Popup.partial.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Style.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

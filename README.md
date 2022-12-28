@@ -227,14 +227,54 @@ In addition to these three services, there is also **ContentDialog** which prope
 ```xaml
         <ContentDialog Title="Custom Dialog" CloseButtonText="OK"
                        validation:ContentDialog.IsOpen="{x:Bind ViewModel.FormValidator.HasIssues, Mode=OneWay}">
-            <Grid MinWidth="300">
-                <ItemsControl ItemsSource="{x:Bind ViewModel.FormValidator.Issues}" Margin="32,16,32,16">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate x:DataType="x:Object">
-                            <TextBlock Text="{x:Bind}" TextWrapping="Wrap" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </Grid>
+            ...
         </ContentDialog>
+```
+
+## Overriding default styles
+
+To override default styles, add following XAML into App.xaml file of your application and edit default values:
+
+```xaml
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+
+                <ResourceDictionary>
+                    <!--<DataTemplate x:Key="ValidationDefaultPopupItemTemplate" />-->
+                    <!--<Thickness x:Key="ValidationDefaultPopupBorderThickness">0</Thickness>-->
+                    <CornerRadius x:Key="ValidationDefaultPopupCornerRadius">8</CornerRadius>
+                    <!--<x:Double x:Key="ValidationDefaultPopupMaxWidth">320</x:Double>-->
+                    <!--<x:Double x:Key="ValidationDefaultPopupMinWidth">0</x:Double>-->
+                    <!--<x:Double x:Key="ValidationDefaultPopupWidth">320</x:Double>-->
+                    <Thickness x:Key="ValidationDefaultPopupPadding">20, 8, 16, 12</Thickness>
+
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Light">
+                            <SolidColorBrush x:Key="ValidationDefaultBorderHighlightingBrush" Color="#C4281C" />
+
+                            <!--<SolidColorBrush x:Key="ValidationDefaultPopupBorderBrush" Color="#FDE7E9" />-->
+                            <SolidColorBrush x:Key="ValidationDefaultPopupBackgroundBrush" Color="#FDE7E9" />
+                            <StaticResource x:Key="ValidationDefaultPopupForegroundBrush" ResourceKey="SystemControlForegroundBaseHighBrush" />
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="Dark">
+                            <SolidColorBrush x:Key="ValidationDefaultBorderHighlightingBrush" Color="#C4281C" />
+
+                            <!--<SolidColorBrush x:Key="ValidationDefaultPopupBorderBrush" Color="#442726" />-->
+                            <SolidColorBrush x:Key="ValidationDefaultPopupBackgroundBrush" Color="#442726" />
+                            <StaticResource x:Key="ValidationDefaultPopupForegroundBrush" ResourceKey="SystemControlForegroundBaseHighBrush" />
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="HighContrast">
+                            <SolidColorBrush x:Key="ValidationDefaultBorderHighlightingBrush" Color="#C4281C" />
+
+                            <!--<SolidColorBrush x:Key="ValidationDefaultPopupBorderBrush" Color="{ThemeResource SystemColorWindowColor}" />-->
+                            <SolidColorBrush x:Key="ValidationDefaultPopupBackgroundBrush" Color="{ThemeResource SystemColorWindowColor}" />
+                            <StaticResource x:Key="ValidationDefaultPopupForegroundBrush" ResourceKey="SystemControlForegroundBaseHighBrush" />
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 ```
