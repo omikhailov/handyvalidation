@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using HandyValidation;
 
 namespace Examples.ViewModel
@@ -14,27 +15,27 @@ namespace Examples.ViewModel
             SetupValidation();
         }
 
-        public Property<string> FirstName = new Property<string>("John")
+        public Property<string> FirstName { get; set; } = new Property<string>("John")
         {
             Validator = new RulesValidator<string>(
-                Rule.NotNullOrWhiteSpace().WithResourceString("FirstNameCannotBeEmpty"),
-                Rule.MinLength(2).WithFormattedResourceString("FirstNameCannotBeInitials")),
+                Rule.NotNullOrWhiteSpace().WithMessage(Resources.FirstNameCannotBeEmpty),
+                Rule.MinLength(2).WithFormattedMessage(Resources.FirstNameCannotBeInitials)),
         };
 
-        public Property<string> LastName = new Property<string>("Smith")
+        public Property<string> LastName { get; set; } = new Property<string>("Smith")
         {
             Validator = new RulesValidator<string>(
                 Rule.NotNullOrWhiteSpace().WithMessage("Please fill the Last Name field"),
                 Rule.MinLength(2).WithMessage("Last Name must be at least two characters long")),
         };
 
-        public Property<DateTimeOffset> Dob = new Property<DateTimeOffset>(DateTimeOffset.Now, ValidatorState.Invalid)
+        public Property<DateTime> Dob { get; set; } = new Property<DateTime>(DateTime.Now.Date, ValidatorState.Invalid)
         {
-            Validator = new RulesValidator<DateTimeOffset>(
-                Rule.Range(DateTimeOffset.Now.AddYears(-60), DateTimeOffset.Now.AddYears(-21)).WithMessage("The borrower must be at least 21 and no older than 60"))
+            Validator = new RulesValidator<DateTime>(
+                Rule.Range(DateTime.Now.AddYears(-60), DateTime.Now.AddYears(-21)).WithMessage("The borrower must be at least 21 and no older than 60"))
         };
 
-        public Property<string> PhoneNumber = new Property<string>()
+        public Property<string> PhoneNumber { get; set; } = new Property<string>()
         {
             Validator = new RulesValidator<string>(
                 Rule.NotNullOrWhiteSpace().WithMessage("Please enter phone number"),
@@ -43,15 +44,14 @@ namespace Examples.ViewModel
             ValueChanged = info => { info.Property.MetaData = string.Concat(info.NewValue.Where(c => char.IsDigit(c))); }
         };
 
-        public Property<string> Email = new Property<string>()
+        public Property<string> Email { get; set; } = new Property<string>()
         {
             Validator = new RulesValidator<string>(
                 Rule.NotNullOrWhiteSpace().WithMessage("Please enter email address"),
-                Rule.Email().WithMessage("Email address is incorrect")),
-            Delay = TimeSpan.FromSeconds(0.8)
+                Rule.Email().WithMessage("Email address is incorrect"))
         };
 
-        public Property<string> Password = new Property<string>()
+        public Property<string> Password { get; set; } = new Property<string>()
         {
             Validator = new RulesValidator<string>(
                 Rule.NotNullOrWhiteSpace().WithMessage("Please enter the password"),
@@ -66,25 +66,29 @@ namespace Examples.ViewModel
                     }
 
                     return null;
-                }))
+                })),
+            ValueChanged = (info) => { info.Property.MetaData = new string('*', info.NewValue?.Length ?? 0); }
         };
 
-        public Property<string> ConfirmPassword = new Property<string>();
+        public Property<string> ConfirmPassword { get; set; } = new Property<string>()
+        {
+            ValueChanged = (info) => { info.Property.MetaData = new string('*', info.NewValue?.Length ?? 0); }
+        };
 
-        public CustomValidator ConfirmPasswordValidator;
+        public CustomValidator ConfirmPasswordValidator { get; set; }
 
-        public CompositeValidator PropertiesValidator;
+        public CompositeValidator PropertiesValidator { get; set; }
 
-        public CustomValidator ApiAvailabilityValidator = new CustomValidator(async (issues, token) => 
+        public CustomValidator ApiAvailabilityValidator { get; set; } = new CustomValidator(async (issues, token) => 
         {
             await Task.Delay(500, token);
 
             issues.Add("Unfortunately, we cannot accept your application right now because our server is temporarily down. Our experts are already working on fixing this problem. Please try again later.");
         });
 
-        public CompositeValidator FormValidator;
+        public CompositeValidator FormValidator { get; set; }
 
-        public ValidationStateWatcher SubmitButtonWatcher;
+        public ValidationStateWatcher SubmitButtonWatcher { get; set; }
 
         private void SetupValidation()
         {
@@ -110,7 +114,11 @@ namespace Examples.ViewModel
         {
             await FormValidator.Validate(CancellationToken.None);
 
-            if (!FormValidator.HasIssues)
+            if (FormValidator.HasIssues)
+            {
+                MessageBox.Show(string.Join(Environment.NewLine, FormValidator.Issues), "Submission failed", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
             {
                 // Submit
             }

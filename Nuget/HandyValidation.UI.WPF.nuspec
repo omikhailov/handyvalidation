@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>HandyValidation.UI.WPF</id>
+    <version>1.0.7</version>
+    <title>HandyValidation.UI.WPF</title>
+    <authors>Oleg Mikhailov</authors>
+    <owners></owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/omikhailov/handyvalidation/blob/main/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/omikhailov/handyvalidation</projectUrl>
+    <description>Validation library for WinUI, UWP and WPF. This package contains classes for view layer ported to WPF.</description>
+    <summary>Validation library for WinUI, UWP and WPF</summary>
+    <tags>uwp winui wpf validation mvvm</tags>
+  </metadata>
+  <files>
+    <file src="..\Code\HandyValidation.UI for WPF\bin\Release\net6.0-windows\HandyValidation.UI.deps.json" target="lib\net6.0\HandyValidation.UI.deps.json" />
+    <file src="..\Code\HandyValidation.UI for WPF\bin\Release\net6.0-windows\HandyValidation.UI.dll" target="lib\net6.0\HandyValidation.UI.dll" />
+    <file src="..\Code\HandyValidation.UI for WPF\bin\Release\net6.0-windows\HandyValidation.UI.pdb" target="lib\net6.0\HandyValidation.UI.pdb" />
+    <file src="..\Code\HandyValidation.UI for WPF\bin\Release\net6.0-windows\HandyValidation.UI.xml" target="lib\net6.0\HandyValidation.UI.xml" />
+  </files>
+</package>

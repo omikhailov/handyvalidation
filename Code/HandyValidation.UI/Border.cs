@@ -1,10 +1,10 @@
-﻿using HandyValidation.UI.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Windows.Media.Audio;
+using HandyValidation.UI.Helpers;
 
 #if UWP
+using Windows.Media.Audio;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -12,12 +12,18 @@ using Windows.UI.Xaml.Media;
 #endif
 
 #if WINUI
+using Windows.Media.Audio;
 using Windows.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media;
 #endif
 
+#if WPF
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+#endif
 
 namespace HandyValidation.UI
 {
@@ -30,7 +36,7 @@ namespace HandyValidation.UI
         {
             ResourceHelper.RegisterLibraryResources();
             
-            var highlightingBrushPropertyMetadata = PropertyMetadata.Create(ResourceHelper.GetDefaultValueCallbackFor("ValidationDefaultBorderHighlightingBrush"), HighlightingBrushChanged);
+            var highlightingBrushPropertyMetadata = ResourceHelper.GetPropertyMetadataFor("ValidationDefaultBorderHighlightingBrush", HighlightingBrushChanged);
 
             HighlightingBrushProperty = DependencyProperty.RegisterAttached("HighlightingBrush", typeof(Brush), typeof(Border), highlightingBrushPropertyMetadata);
         }

@@ -1,6 +1,12 @@
 # Handy validation library for WinUI and UWP
 
-HV allows you to significantly simplify and structure input validation code in your WinUI and UWP applications. Let's start right away with some examples and see how it would work with a typical form.
+Nuget Packages:
+[HandyValidation (.Net Standard 2.0 library)](https://www.nuget.org/packages/HandyValidation)
+[HandyValidation.Resources for WinUI / .Net 6.0 and UWP 10.0.16299+](https://www.nuget.org/packages/HandyValidation.Resources)
+[HandyValidation.UI for WinUI / .Net 6.0 and UWP 10.0.16299+](https://www.nuget.org/packages/HandyValidation.UI)
+[HandyValidation.UI.WPF for WPF / .Net 6.0](https://www.nuget.org/packages/HandyValidation.UI.WPF)
+
+HandyValidation allows you to significantly simplify and structure input validation code in your WinUI and UWP applications. Let's start right away with some examples and see how it would work with a typical form.
 
 ![image](https://user-images.githubusercontent.com/75426711/205976050-755ed665-52a0-4396-b8af-173e9ffa189c.png)
 
@@ -231,7 +237,7 @@ In addition to these three services, there is also **ContentDialog** which prope
         </ContentDialog>
 ```
 
-## Overriding default styles
+## Overriding default styles (WinUI & UWP)
 
 To override default styles, add following XAML into App.xaml file of your application and edit default values:
 
@@ -277,4 +283,24 @@ To override default styles, add following XAML into App.xaml file of your applic
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
+```
+
+## Overriding default styles (WPF)
+
+To override default styles, add following XAML into App.xaml file of your application and edit default values:
+
+```xaml
+    <!--<DataTemplate x:Key="ValidationDefaultPopupItemTemplate" />-->
+    <Thickness x:Key="ValidationDefaultPopupBorderThickness">0</Thickness>
+    <CornerRadius x:Key="ValidationDefaultPopupCornerRadius">8</CornerRadius>
+    <!--<x:Double x:Key="ValidationDefaultPopupMaxWidth">320</x:Double>-->
+    <!--<x:Double x:Key="ValidationDefaultPopupMinWidth">0</x:Double>-->
+    <!--<x:Double x:Key="ValidationDefaultPopupWidth">320</x:Double>-->
+    <Thickness x:Key="ValidationDefaultPopupPadding">20, 8, 16, 12</Thickness>
+
+    <SolidColorBrush x:Key="ValidationDefaultBorderHighlightingBrush" Color="#C4281C" />
+    
+    <!--<SolidColorBrush x:Key="ValidationDefaultPopupBorderBrush" Color="#FDE7E9" />-->
+    <SolidColorBrush x:Key="ValidationDefaultPopupBackgroundBrush" Color="#FDE7E9" />
+    <SolidColorBrush x:Key="ValidationDefaultPopupForegroundBrush" Color="Black" />
 ```

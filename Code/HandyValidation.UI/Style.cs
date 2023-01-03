@@ -12,6 +12,10 @@ using Microsoft.UI.Xaml;
 using XamlStyle = Microsoft.UI.Xaml.Style;
 #endif
 
+#if WPF
+using System.Windows;
+using XamlStyle = System.Windows.Style;
+#endif
 
 namespace HandyValidation.UI
 {

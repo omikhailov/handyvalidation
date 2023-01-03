@@ -37,7 +37,7 @@ namespace HandyValidation.UI
         /// <summary>
         /// Popup shadow
         /// </summary>
-        public static DependencyProperty ShadowProperty { get; } = DependencyProperty.RegisterAttached(nameof(ShadowProperty), typeof(Shadow), typeof(Popup), new PropertyMetadata(DefaultShadow, ShadowChanged));
+        public static DependencyProperty ShadowProperty { get; } = DependencyProperty.RegisterAttached("Shadow", typeof(Shadow), typeof(Popup), new PropertyMetadata(DefaultShadow, ShadowChanged));
 
         private static void ShadowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

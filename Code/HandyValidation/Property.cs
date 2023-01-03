@@ -273,6 +273,8 @@ namespace HandyValidation
         {
             if (!_isReadonly)
             {
+                if (_isDirty && _equalityComparer.Equals(_value, value)) return;
+                
                 if (!_isDirty && _equalityComparer.Equals(_lastSetValue, value)) return;
 
                 if (_cts != null)

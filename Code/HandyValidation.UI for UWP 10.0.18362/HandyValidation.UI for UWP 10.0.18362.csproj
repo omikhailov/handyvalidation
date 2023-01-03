@@ -139,6 +139,13 @@
       <Version>6.2.14</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Page Include="..\HandyValidation.UI for UWP 10.0.16299\Themes\Generic.xaml">
+      <Link>Themes\Generic.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
   <Import Project="..\HandyValidation.UI\HandyValidation.UI.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

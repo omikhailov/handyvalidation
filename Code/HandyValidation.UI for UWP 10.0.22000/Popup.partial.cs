@@ -34,7 +34,7 @@ namespace HandyValidation.UI
         /// <summary>
         /// Popup placement mode
         /// </summary>
-        public static DependencyProperty PlacementProperty { get; } = DependencyProperty.RegisterAttached(nameof(PlacementProperty), typeof(PopupPlacementMode), typeof(Popup), new PropertyMetadata(PopupPlacementMode.TopEdgeAlignedRight, PlacementChanged));
+        public static DependencyProperty PlacementProperty { get; } = DependencyProperty.RegisterAttached("Placement", typeof(PopupPlacementMode), typeof(Popup), new PropertyMetadata(PopupPlacementMode.TopEdgeAlignedRight, PlacementChanged));
 
         private static void PlacementChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -73,7 +73,7 @@ namespace HandyValidation.UI
         /// <summary>
         /// Popup shadow
         /// </summary>
-        public static DependencyProperty ShadowProperty { get; } = DependencyProperty.RegisterAttached(nameof(ShadowProperty), typeof(Shadow), typeof(Popup), new PropertyMetadata(DefaultShadow, ShadowChanged));
+        public static DependencyProperty ShadowProperty { get; } = DependencyProperty.RegisterAttached("Shadow", typeof(Shadow), typeof(Popup), new PropertyMetadata(DefaultShadow, ShadowChanged));
 
         private static void ShadowChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {

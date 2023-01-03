@@ -13,6 +13,7 @@ using XamlContentDialog = Microsoft.UI.Xaml.Controls.ContentDialog;
 
 namespace HandyValidation.UI
 {
+#if !WPF
     /// <summary>
     /// A service to make ContentDialog bindable
     /// </summary>
@@ -91,4 +92,5 @@ namespace HandyValidation.UI
             _state.Add(dialog, isOpened);
         }
     }
+#endif
 }

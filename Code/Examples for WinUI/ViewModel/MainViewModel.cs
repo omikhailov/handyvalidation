@@ -79,7 +79,7 @@ namespace Examples.ViewModel
         {
             await Task.Delay(500, token);
 
-            issues.Add("Unfortunately, we can't accept your application right now because our server is temporarily down. Our experts are already working on fixing this problem. Please try again later.");
+            issues.Add("Unfortunately, we cannot accept your application right now because our server is temporarily down. Our experts are already working on fixing this problem. Please try again later.");
         });
 
         public CompositeValidator FormValidator;

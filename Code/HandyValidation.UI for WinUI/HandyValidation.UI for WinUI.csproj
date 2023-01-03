@@ -22,4 +22,14 @@
   </ItemGroup>
 
   <Import Project="..\HandyValidation.UI\HandyValidation.UI.projitems" Label="Shared" />
+
+  <ItemGroup>
+    <Folder Include="Themes\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="..\HandyValidation.UI for UWP 10.0.16299\Themes\Generic.xaml" Link="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
 </Project>

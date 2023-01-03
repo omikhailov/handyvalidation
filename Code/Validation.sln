@@ -29,6 +29,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyValidation.UI for UWP 
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "HandyValidation.UI", "HandyValidation.UI\HandyValidation.UI.shproj", "{E8FAE24D-C89C-4142-8C82-A41EFD4EAA83}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples for WPF", "Examples for WPF\Examples for WPF.csproj", "{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HandyValidation.UI for WPF", "HandyValidation.UI for WPF\HandyValidation.UI for WPF.csproj", "{8DF37C29-1690-4654-AB66-B4C01DD58D67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -243,6 +247,46 @@ Global
 		{F8316EA7-4D89-4528-86CB-51342CC3E346}.Release|x64.Build.0 = Release|x64
 		{F8316EA7-4D89-4528-86CB-51342CC3E346}.Release|x86.ActiveCfg = Release|x86
 		{F8316EA7-4D89-4528-86CB-51342CC3E346}.Release|x86.Build.0 = Release|x86
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Debug|arm64.Build.0 = Debug|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Debug|x64.Build.0 = Debug|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Debug|x86.Build.0 = Debug|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Release|ARM.Build.0 = Release|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Release|arm64.ActiveCfg = Release|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Release|arm64.Build.0 = Release|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Release|x64.ActiveCfg = Release|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Release|x64.Build.0 = Release|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Release|x86.ActiveCfg = Release|Any CPU
+		{E28245E1-D902-4B29-B4E9-E0AC6EB97F9A}.Release|x86.Build.0 = Release|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Debug|ARM.Build.0 = Debug|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Debug|arm64.Build.0 = Debug|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Debug|x64.Build.0 = Debug|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Debug|x86.Build.0 = Debug|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Release|ARM.ActiveCfg = Release|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Release|ARM.Build.0 = Release|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Release|arm64.ActiveCfg = Release|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Release|arm64.Build.0 = Release|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Release|x64.ActiveCfg = Release|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Release|x64.Build.0 = Release|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Release|x86.ActiveCfg = Release|Any CPU
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -256,12 +300,14 @@ Global
 		{2FF1A70E-1A7C-4CDC-9173-A0903C19B35E} = {0ABAB922-C37D-4129-ADA6-41C30A372042}
 		{F8316EA7-4D89-4528-86CB-51342CC3E346} = {0ABAB922-C37D-4129-ADA6-41C30A372042}
 		{E8FAE24D-C89C-4142-8C82-A41EFD4EAA83} = {0ABAB922-C37D-4129-ADA6-41C30A372042}
+		{8DF37C29-1690-4654-AB66-B4C01DD58D67} = {0ABAB922-C37D-4129-ADA6-41C30A372042}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EBC548EF-E21E-49CD-A819-76684BF69174}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		HandyValidation.UI\HandyValidation.UI.projitems*{2ff1a70e-1a7c-4cdc-9173-a0903c19b35e}*SharedItemsImports = 4
+		HandyValidation.UI\HandyValidation.UI.projitems*{8df37c29-1690-4654-ab66-b4c01dd58d67}*SharedItemsImports = 5
 		HandyValidation.UI\HandyValidation.UI.projitems*{a5896998-3d3f-4684-b099-ee8ae194e705}*SharedItemsImports = 4
 		HandyValidation.UI\HandyValidation.UI.projitems*{b0835bcf-0916-445b-9539-fee33ce11b85}*SharedItemsImports = 5
 		HandyValidation.UI\HandyValidation.UI.projitems*{e8fae24d-c89c-4142-8c82-a41efd4eaa83}*SharedItemsImports = 13

@@ -2,15 +2,15 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>HandyValidation.Resources</id>
-    <version>1.0.6</version>
+    <version>1.0.7</version>
     <title>HandyValidation.Resources</title>
     <authors>Oleg Mikhailov</authors>
     <owners></owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>https://github.com/omikhailov/handyvalidation/blob/main/LICENSE</licenseUrl>
     <projectUrl>https://github.com/omikhailov/handyvalidation</projectUrl>
-    <description>Validation library for WinUI and UWP. This package contains extensions for validation messages localization.</description>
-    <summary>Validation library for WinUI and UWP</summary>
+    <description>Validation library for WinUI, UWP and WPF. This package contains extensions for validation messages localization.</description>
+    <summary>Validation library for WinUI, UWP and WPF</summary>
     <tags>uwp winui validation mvvm</tags>
 	<dependencies>
 		<dependency id="HandyValidation" version="1.0.6" />

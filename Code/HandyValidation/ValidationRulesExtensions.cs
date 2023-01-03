@@ -65,7 +65,7 @@ namespace HandyValidation
         /// <returns>Validatoin rule</returns>
         public static IValidationRule<T, string> WithFormattedMessage<T>(this IValidationRule<T, object> rule, string message)
         {
-            return rule.WithMessage(value => string.Format(message));
+            return rule.WithMessage(value => string.Format(message, value));
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace HandyValidation
         /// <returns>Validatoin rule</returns>
         public static IAsyncValidationRule<T, string> WithFormattedMessage<T>(this IAsyncValidationRule<T, object> rule, string message)
         {
-            return rule.WithMessage(value => string.Format(message));
+            return rule.WithMessage(value => string.Format(message, value));
         }
     }
 }

@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Windows.System;
-using Windows.UI;
 using HandyValidation.UI.Helpers;
+using System.Xml;
+using System.Reflection.PortableExecutable;
 
 #if UWP
 using Windows.Foundation;
 using Windows.Foundation.Metadata;
+using Windows.System;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -18,6 +20,8 @@ using XamlPopup = Windows.UI.Xaml.Controls.Primitives.Popup;
 using XamlBorder = Windows.UI.Xaml.Controls.Border;
 
 #elif WINUI
+using Windows.System;
+using Windows.UI;
 using Microsoft.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -26,6 +30,16 @@ using Microsoft.UI.Xaml.Markup;
 using Microsoft.UI.Xaml.Media;
 using XamlPopup = Microsoft.UI.Xaml.Controls.Primitives.Popup;
 using XamlBorder = Microsoft.UI.Xaml.Controls.Border;
+
+#elif WPF
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Markup;
+using System.Windows.Media;
+using System.Windows.Media.Effects;
+using XamlPopup = System.Windows.Controls.Primitives.Popup;
+using XamlBorder = System.Windows.Controls.Border;
 #endif
 
 namespace HandyValidation.UI
@@ -50,6 +64,7 @@ namespace HandyValidation.UI
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 ";
+        private const int MaxWidthFallbackValue = 320;
 
         private static Dictionary<DependencyObject, PopupState> _state = new Dictionary<DependencyObject, PopupState>();
 
@@ -57,45 +72,45 @@ namespace HandyValidation.UI
         {
             ResourceHelper.RegisterLibraryResources();
 
-            var borderBrushPropertyMetadata = PropertyMetadata.Create(ResourceHelper.GetDefaultValueCallbackFor("ValidationDefaultPopupBorderBrush"), BorderBrushChanged);
+            var borderBrushPropertyMetadata = ResourceHelper.GetPropertyMetadataFor("ValidationDefaultPopupBorderBrush", BorderBrushChanged);
 
-            BorderBrushProperty = DependencyProperty.RegisterAttached(nameof(BorderBrushProperty), typeof(Brush), typeof(Popup), borderBrushPropertyMetadata);
+            BorderBrushProperty = DependencyProperty.RegisterAttached("BorderBrush", typeof(Brush), typeof(Popup), borderBrushPropertyMetadata);
 
-            var borderThicknessPropertyMetadata = PropertyMetadata.Create(ResourceHelper.GetDefaultValueCallbackFor("ValidationDefaultPopupBorderThickness"), BorderThicknessChanged);
+            var borderThicknessPropertyMetadata = ResourceHelper.GetPropertyMetadataFor("ValidationDefaultPopupBorderThickness", BorderThicknessChanged);
 
-            BorderThicknessProperty = DependencyProperty.RegisterAttached(nameof(BorderThicknessProperty), typeof(Thickness), typeof(Popup), borderThicknessPropertyMetadata);
+            BorderThicknessProperty = DependencyProperty.RegisterAttached("BorderThickness", typeof(Thickness), typeof(Popup), borderThicknessPropertyMetadata);
 
-            var cornerRadiusPropertyMetadata = PropertyMetadata.Create(ResourceHelper.GetDefaultValueCallbackFor("ValidationDefaultPopupCornerRadius"), CornerRadiusChanged);
+            var cornerRadiusPropertyMetadata = ResourceHelper.GetPropertyMetadataFor("ValidationDefaultPopupCornerRadius", CornerRadiusChanged);
 
-            CornerRadiusProperty = DependencyProperty.RegisterAttached(nameof(CornerRadiusProperty), typeof(CornerRadius), typeof(Popup), cornerRadiusPropertyMetadata);
+            CornerRadiusProperty = DependencyProperty.RegisterAttached("CornerRadius", typeof(CornerRadius), typeof(Popup), cornerRadiusPropertyMetadata);
 
-            var maxWidthPropertyMetadata = PropertyMetadata.Create(ResourceHelper.GetDefaultValueCallbackFor("ValidationDefaultPopupMaxWidth", double.PositiveInfinity), MaxWidthChanged);
+            var maxWidthPropertyMetadata = ResourceHelper.GetPropertyMetadataFor("ValidationDefaultPopupMaxWidth", double.PositiveInfinity, MaxWidthChanged);
             
-            MaxWidthProperty = DependencyProperty.RegisterAttached(nameof(MaxWidthProperty), typeof(double), typeof(Popup), maxWidthPropertyMetadata);
+            MaxWidthProperty = DependencyProperty.RegisterAttached("MaxWidth", typeof(double), typeof(Popup), maxWidthPropertyMetadata);
 
-            var minWidthPropertyMetadata = PropertyMetadata.Create(ResourceHelper.GetDefaultValueCallbackFor("ValidationDefaultPopupMinWidth", 0.0), MinWidthChanged);
+            var minWidthPropertyMetadata = ResourceHelper.GetPropertyMetadataFor("ValidationDefaultPopupMinWidth", 0.0, MinWidthChanged);
 
-            MinWidthProperty = DependencyProperty.RegisterAttached(nameof(MinWidthProperty), typeof(double), typeof(Popup), minWidthPropertyMetadata);
+            MinWidthProperty = DependencyProperty.RegisterAttached("MinWidth", typeof(double), typeof(Popup), minWidthPropertyMetadata);
 
-            var widthPropertyMetadata = PropertyMetadata.Create(ResourceHelper.GetDefaultValueCallbackFor("ValidationDefaultPopupWidth", double.NaN), WidthChanged);
+            var widthPropertyMetadata = ResourceHelper.GetPropertyMetadataFor("ValidationDefaultPopupWidth", double.NaN, WidthChanged);
 
-            WidthProperty = DependencyProperty.RegisterAttached(nameof(WidthProperty), typeof(double), typeof(Popup), widthPropertyMetadata);
+            WidthProperty = DependencyProperty.RegisterAttached("Width", typeof(double), typeof(Popup), widthPropertyMetadata);
 
-            var paddingPropertyMetadata = PropertyMetadata.Create(ResourceHelper.GetDefaultValueCallbackFor("ValidationDefaultPopupPadding"), PaddingChanged);
+            var paddingPropertyMetadata = ResourceHelper.GetPropertyMetadataFor("ValidationDefaultPopupPadding", PaddingChanged);
 
-            PaddingProperty = DependencyProperty.RegisterAttached(nameof(PaddingProperty), typeof(Thickness), typeof(Popup), paddingPropertyMetadata);
+            PaddingProperty = DependencyProperty.RegisterAttached("Padding", typeof(Thickness), typeof(Popup), paddingPropertyMetadata);
 
-            var backgroundPropertyMetadata = PropertyMetadata.Create(ResourceHelper.GetDefaultValueCallbackFor("ValidationDefaultPopupBackgroundBrush"), BackgroundChanged);
+            var backgroundPropertyMetadata = ResourceHelper.GetPropertyMetadataFor("ValidationDefaultPopupBackgroundBrush", BackgroundChanged);
 
-            BackgroundProperty = DependencyProperty.RegisterAttached(nameof(BackgroundProperty), typeof(Brush), typeof(Popup), backgroundPropertyMetadata);
+            BackgroundProperty = DependencyProperty.RegisterAttached("Background", typeof(Brush), typeof(Popup), backgroundPropertyMetadata);
 
-            var foregroundPropertyMetadata = PropertyMetadata.Create(ResourceHelper.GetDefaultValueCallbackFor("ValidationDefaultPopupForegroundBrush"), ForegroundChanged);
+            var foregroundPropertyMetadata = ResourceHelper.GetPropertyMetadataFor("ValidationDefaultPopupForegroundBrush", ForegroundChanged);
 
-            ForegroundProperty = DependencyProperty.RegisterAttached(nameof(ForegroundProperty), typeof(Brush), typeof(Popup), foregroundPropertyMetadata);
+            ForegroundProperty = DependencyProperty.RegisterAttached("Foreground", typeof(Brush), typeof(Popup), foregroundPropertyMetadata);
 
             var defaultItemTemplate = ResourceHelper.Get<DataTemplate>("ValidationDefaultPopupItemTemplate");
 
-            ItemTemplateProperty = DependencyProperty.RegisterAttached(nameof(ItemTemplateProperty), typeof(DataTemplate), typeof(Popup), new PropertyMetadata(defaultItemTemplate, ItemTemplateChanged));
+            ItemTemplateProperty = DependencyProperty.RegisterAttached("ItemTemplate", typeof(DataTemplate), typeof(Popup), new PropertyMetadata(defaultItemTemplate, ItemTemplateChanged));
     }
 
         #region IsOpen
@@ -122,7 +137,7 @@ namespace HandyValidation.UI
         /// <summary>
         /// A flag indicating whether Popup is open or not
         /// </summary>
-        public static DependencyProperty IsOpenProperty { get; } = DependencyProperty.RegisterAttached(nameof(IsOpenProperty), typeof(bool), typeof(Popup), new PropertyMetadata(false, IsOpenChanged));
+        public static DependencyProperty IsOpenProperty { get; } = DependencyProperty.RegisterAttached("IsOpen", typeof(bool), typeof(Popup), new PropertyMetadata(false, IsOpenChanged));
 
         private static async void IsOpenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -156,7 +171,7 @@ namespace HandyValidation.UI
         /// <summary>
         /// Source items for popup
         /// </summary>
-        public static DependencyProperty ItemsSourceProperty { get; } = DependencyProperty.RegisterAttached(nameof(ItemsSourceProperty), typeof(IEnumerable<object>), typeof(Popup), new PropertyMetadata(null, ItemsSourceChanged));
+        public static DependencyProperty ItemsSourceProperty { get; } = DependencyProperty.RegisterAttached("ItemsSource", typeof(IEnumerable<object>), typeof(Popup), new PropertyMetadata(null, ItemsSourceChanged));
 
         private static async void ItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -170,7 +185,7 @@ namespace HandyValidation.UI
             }
             else
             {
-                state.ItemsControl.ItemsSource = e.NewValue;
+                state.ItemsControl.ItemsSource = (IEnumerable<object>)e.NewValue;
             }
         }
 
@@ -549,24 +564,24 @@ namespace HandyValidation.UI
         private static async Task RegisterPopupFor(FrameworkElement element, object itemsSource)
         {
             var popup = new XamlPopup();
-            
-            SetPopupShadow(element, popup);
 
             await SetXamlRoot(element, popup);
 
             element.LostFocus += async (s, e) => { await SetPopupIsOpen(popup, false); };
 
             element.GotFocus += async (s, e) => { if (GetIsOpen(element)) await SetPopupIsOpen(popup, true); };
-
+#if WPF
+            element.KeyDown += async (s, e) => { if (e.Key == Key.Escape) await SetPopupIsOpen(popup, false); };
+#else
             element.KeyDown += async (s, e) => { if (e.Key == VirtualKey.Escape) await SetPopupIsOpen(popup, false); };
-            
+#endif
             var border = new XamlBorder()
             {
                 Background = GetBackground(element),
                 BorderBrush = GetBorderBrush(element),
                 BorderThickness = GetBorderThickness(element),
                 CornerRadius = GetCornerRadius(element),
-                MaxWidth = FirstMeaningfulValue(GetMaxWidth(element), element.ActualWidth, element.Width, element.DesiredSize.Width, 320),
+                MaxWidth = FirstMeaningfulValue(GetMaxWidth(element), element.ActualWidth, element.Width, element.DesiredSize.Width, MaxWidthFallbackValue),
                 MinWidth = GetMinWidth(element),
                 Padding = GetPadding(element),
             };
@@ -577,12 +592,24 @@ namespace HandyValidation.UI
 
             popup.Child = border;
 
+            SetPopupShadow(element, popup);
+
             ItemsControl itemsControl;
 
+#if WPF
+            using (var sr = new StringReader(ItemsControl)) 
+            {
+                using (var xr = XmlReader.Create(sr)) 
+                {
+                    itemsControl = (ItemsControl)XamlReader.Load(xr);
+                }
+            }
+#else
             using (var reader = new StringReader(ItemsControl))
             {
                 itemsControl = (ItemsControl)XamlReader.Load(reader.ReadToEnd());
             }
+#endif
 
             var customTemplate = GetItemTemplate(element);
 
