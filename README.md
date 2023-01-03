@@ -1,10 +1,10 @@
 # Handy validation library for WinUI and UWP
 
 Nuget Packages:
-*[HandyValidation (.Net Standard 2.0 library)](https://www.nuget.org/packages/HandyValidation)
-*[HandyValidation.Resources for WinUI / .Net 6.0 and UWP 10.0.16299+](https://www.nuget.org/packages/HandyValidation.Resources)
-*[HandyValidation.UI for WinUI / .Net 6.0 and UWP 10.0.16299+](https://www.nuget.org/packages/HandyValidation.UI)
-*[HandyValidation.UI.WPF for WPF / .Net 6.0](https://www.nuget.org/packages/HandyValidation.UI.WPF)
+* [HandyValidation (.Net Standard 2.0 library)](https://www.nuget.org/packages/HandyValidation)
+* [HandyValidation.Resources for WinUI / .Net 6.0 and UWP 10.0.16299+](https://www.nuget.org/packages/HandyValidation.Resources)
+* [HandyValidation.UI for WinUI / .Net 6.0 and UWP 10.0.16299+](https://www.nuget.org/packages/HandyValidation.UI)
+* [HandyValidation.UI.WPF for WPF / .Net 6.0](https://www.nuget.org/packages/HandyValidation.UI.WPF)
 
 HandyValidation allows you to significantly simplify and structure input validation code in your WinUI and UWP applications. Let's start right away with some examples and see how it would work with a typical form.
 
