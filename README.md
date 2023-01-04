@@ -77,30 +77,32 @@ HandyValidation allows you to significantly simplify and structure input validat
 
         public CustomValidator ConfirmPasswordValidator;
 
-        public CompositeValidator PropertiesValidator;
-
         public CustomValidator ApiAvailabilityValidator = new CustomValidator(async (issues, token) => 
         {
             await Task.Delay(500, token);
 
-            issues.Add("Unfortunately, we can't accept your application right now because our server is temporarily down. Our experts are already working on fixing this problem. Please try again later.");
+            issues.Add("Unfortunately, we cannot accept your application right now because our server is temporarily down. Our experts are already working on fixing this problem. Please try again later.");
         });
 
         public CompositeValidator FormValidator;
 
         public ValidationStateWatcher SubmitButtonWatcher;
 
+        public InputSwitch FormSwitch;
+
         private void SetupValidation()
         {
+            var properties = Property.List(FirstName, LastName, Dob, PhoneNumber, Email, Password);
+
             ConfirmPasswordValidator = new CustomValidator(ValidatePasswordsMatch);
 
             ConfirmPassword.ValueChangedAsync = async info => { await ConfirmPasswordValidator.Validate(info.CancellationToken); };
 
-            PropertiesValidator = new CompositeValidator(FirstName, LastName, Dob, PhoneNumber, Email, Password);
+            FormValidator = new CompositeValidator(properties, ConfirmPasswordValidator, ApiAvailabilityValidator);
+            
+            SubmitButtonWatcher = new ValidationStateWatcher(properties, ConfirmPasswordValidator);
 
-            FormValidator = new CompositeValidator(PropertiesValidator, ConfirmPasswordValidator, ApiAvailabilityValidator);
-
-            SubmitButtonWatcher = new ValidationStateWatcher(FirstName, LastName, Dob, PhoneNumber, Email, Password, ConfirmPasswordValidator) { HasIssues = true };
+            FormSwitch = new InputSwitch(properties, ConfirmPassword, SubmitButtonWatcher);
         }
 
         private Task ValidatePasswordsMatch(ObservableCollection<object> issues, CancellationToken token)
@@ -112,7 +114,7 @@ HandyValidation allows you to significantly simplify and structure input validat
 
         public async Task Submit()
         {
-            await FormValidator.Validate(CancellationToken.None);
+            await FormSwitch.OffWhile(FormValidator.Validate());
 
             if (!FormValidator.HasIssues)
             {
@@ -147,44 +149,59 @@ HandyValidation allows you to significantly simplify and structure input validat
                         <TextBlock Grid.Column="1" Text="{x:Bind}" TextWrapping="Wrap" VerticalAlignment="Top" Margin="0,0,8,0" />
                     </Grid>
                 </DataTemplate>
+                <ThemeShadow x:Name="DefaultShadow" />
             </ResourceDictionary>
         </Grid.Resources>
 
         <ScrollViewer>
             <StackPanel HorizontalAlignment="Center" Width="400" Padding="8,64,8,24">
-                
-                <TextBox x:Name="FirstName" Header="First Name" Text="{x:Bind ViewModel.FirstName.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+
+                <TextBox x:Name="FirstName" Header="First Name" Margin="0,8,0,0"
+                         Text="{x:Bind ViewModel.FirstName.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{x:Bind ViewModel.FirstName.IsEnabled, Mode=OneWay}"
                          validation:Border.IsHighlighted="{x:Bind ViewModel.FirstName.Validator.HasIssues, Mode=OneWay}" />
                 <TextBlock Text="{x:Bind ViewModel.FirstName.Validator.FirstIssue, Mode=OneWay}"
                            Visibility="{x:Bind ViewModel.FirstName.Validator.HasIssues, Mode=OneWay}" Style="{StaticResource ValidationMessage}" />
 
-                <TextBox Header="Last Name" Text="{x:Bind ViewModel.LastName.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                <TextBox Header="Last Name" Margin="0,8,0,0"
+                         Text="{x:Bind ViewModel.LastName.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{x:Bind ViewModel.LastName.IsEnabled, Mode=OneWay}"
                          validation:Style.Value="{StaticResource InvalidLastName}" 
                          validation:Style.IsApplied="{x:Bind ViewModel.LastName.Validator.HasIssues, Mode=OneWay}" />
-                
-                <DatePicker Header="Date of Birth" Date="{x:Bind ViewModel.Dob.Value, Mode=TwoWay}" HorizontalAlignment="Stretch" Margin="0,8,0,0"
+
+                <DatePicker Header="Date of Birth" HorizontalAlignment="Stretch" Margin="0,8,0,0"
+                            Date="{x:Bind ViewModel.Dob.Value, Mode=TwoWay}"
+                            IsEnabled="{x:Bind ViewModel.Dob.IsEnabled, Mode=OneWay}"
                             validation:Popup.IsOpen="{x:Bind ViewModel.Dob.Validator.HasIssues, Mode=OneWay}"
                             validation:Popup.ItemsSource="{x:Bind ViewModel.Dob.Validator.Issues}" />
 
-                <TextBox Header="Phone Number" Text="{x:Bind ViewModel.PhoneNumber.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                <TextBox Header="Phone Number" Margin="0,8,0,0"
+                         Text="{x:Bind ViewModel.PhoneNumber.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{x:Bind ViewModel.PhoneNumber.IsEnabled, Mode=OneWay}"
                          validation:Popup.IsOpen="{x:Bind ViewModel.PhoneNumber.Validator.HasIssues, Mode=OneWay}"
                          validation:Popup.ItemsSource="{x:Bind ViewModel.PhoneNumber.Validator.Issues}" />
 
-                <TextBox Header="Email" Text="{x:Bind ViewModel.Email.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                <TextBox Header="Email" Margin="0,8,0,0"
+                         Text="{x:Bind ViewModel.Email.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{x:Bind ViewModel.Email.IsEnabled, Mode=OneWay}"
                          validation:Border.IsHighlighted="{x:Bind ViewModel.Email.Validator.HasIssues, Mode=OneWay}"
                          validation:Popup.IsOpen="{x:Bind ViewModel.Email.Validator.HasIssues, Mode=OneWay}"
                          validation:Popup.ItemsSource="{x:Bind ViewModel.Email.Validator.Issues}" />
 
-                <PasswordBox Header="Password" Password="{x:Bind ViewModel.Password.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                <PasswordBox Header="Password" Margin="0,8,0,0"
+                             Password="{x:Bind ViewModel.Password.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{x:Bind ViewModel.Password.IsEnabled, Mode=OneWay}"
                              validation:Popup.IsOpen="{x:Bind ViewModel.Password.Validator.HasIssues, Mode=OneWay}"
                              validation:Popup.ItemsSource="{x:Bind ViewModel.Password.Validator.Issues}"
                              validation:Popup.ItemTemplate="{StaticResource CustomValidationPopupItem}" />
 
-                <PasswordBox Header="Confirm Password" Password="{x:Bind ViewModel.ConfirmPassword.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,8,0,0"
+                <PasswordBox Header="Confirm Password" Margin="0,8,0,0"
+                             Password="{x:Bind ViewModel.ConfirmPassword.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{x:Bind ViewModel.ConfirmPassword.IsEnabled, Mode=OneWay}"
                              validation:Popup.IsOpen="{x:Bind ViewModel.ConfirmPasswordValidator.HasIssues, Mode=OneWay}"
                              validation:Popup.ItemsSource="{x:Bind ViewModel.ConfirmPasswordValidator.Issues}" />
 
-                <Button Content="Submit" IsEnabled="{x:Bind ViewModel.SubmitButtonWatcher.IsValid, Mode=OneWay}" Click="{x:Bind ViewModel.Submit}" HorizontalAlignment="Right" Margin="0,32,0,0" />
+                <Button Content="Submit" IsEnabled="{x:Bind ViewModel.SubmitButtonWatcher.IsEnabled, Mode=OneWay}" Click="{x:Bind ViewModel.Submit}" HorizontalAlignment="Right" Margin="0,32,0,0" />
 
             </StackPanel>
         </ScrollViewer>

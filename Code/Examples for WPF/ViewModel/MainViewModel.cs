@@ -90,17 +90,21 @@ namespace Examples.ViewModel
 
         public ValidationStateWatcher SubmitButtonWatcher { get; set; }
 
+        public InputSwitch FormSwitch { get; set; }
+
         private void SetupValidation()
         {
+            var properties = Property.List(FirstName, LastName, Dob, PhoneNumber, Email, Password);
+
             ConfirmPasswordValidator = new CustomValidator(ValidatePasswordsMatch);
 
             ConfirmPassword.ValueChangedAsync = async info => { await ConfirmPasswordValidator.Validate(info.CancellationToken); };
 
-            PropertiesValidator = new CompositeValidator(FirstName, LastName, Dob, PhoneNumber, Email, Password);
+            FormValidator = new CompositeValidator(properties, ConfirmPasswordValidator, ApiAvailabilityValidator);
 
-            FormValidator = new CompositeValidator(PropertiesValidator, ConfirmPasswordValidator, ApiAvailabilityValidator);
+            SubmitButtonWatcher = new ValidationStateWatcher(properties, ConfirmPasswordValidator);
 
-            SubmitButtonWatcher = new ValidationStateWatcher(FirstName, LastName, Dob, PhoneNumber, Email, Password, ConfirmPasswordValidator) { HasIssues = true };
+            FormSwitch = new InputSwitch(properties, ConfirmPassword, SubmitButtonWatcher);
         }
 
         private Task ValidatePasswordsMatch(ObservableCollection<object> issues, CancellationToken token)
@@ -112,7 +116,7 @@ namespace Examples.ViewModel
 
         public async Task Submit()
         {
-            await FormValidator.Validate(CancellationToken.None);
+            await FormSwitch.OffWhile(FormValidator.Validate());
 
             if (FormValidator.HasIssues)
             {

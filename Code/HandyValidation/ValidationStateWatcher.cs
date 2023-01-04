@@ -10,7 +10,7 @@ namespace HandyValidation
     /// Watches specified validatable items such as properties and validators to change its state
     /// when all of them are valid or at least one didn't pass validation
     /// </summary>
-    public class ValidationStateWatcher : INotifyPropertyChanged
+    public class ValidationStateWatcher : ISwitchable, INotifyPropertyChanged
     {
         /// <summary>
         /// List of validators
@@ -36,6 +36,16 @@ namespace HandyValidation
         }
 
         /// <summary>
+        /// Creates new instance of ValidationStateWatcher
+        /// </summary>
+        /// <param name="items">Validatable items</param>
+        /// <param name="additionalItems">Additional validatable items</param>
+        public ValidationStateWatcher(IEnumerable<IValidatable> items, params IValidatable[] additionalItems)
+        {
+            Init(items.Concat(additionalItems));
+        }
+
+        /// <summary>
         /// Prepares the list of validators
         /// </summary>
         /// <param name="items"></param>
@@ -48,7 +58,7 @@ namespace HandyValidation
                 validator.PropertyChanged += Validator_PropertyChanged;
             }
 
-            if (_validators.Any(v => v.State == ValidatorState.Invalid)) HasIssues = true;
+            if (_validators.Any(v => v.State != ValidatorState.Valid)) HasIssues = true;
         }
 
         /// <summary>
@@ -74,6 +84,8 @@ namespace HandyValidation
                     OnPropertyChanged();
 
                     OnPropertyChanged(nameof(IsValid));
+
+                    OnPropertyChanged(nameof(IsEnabled));
                 }
             }
         }
@@ -90,6 +102,31 @@ namespace HandyValidation
             set
             {
                 HasIssues = !value;
+            }
+        }
+
+        /// <summary>
+        /// Backing field for IsEnabled property
+        /// </summary>
+        protected bool _isEnabled = true;
+
+        /// <summary>
+        /// Flag indicating that state watcher is enabled
+        /// </summary>
+        public virtual bool IsEnabled
+        {
+            get
+            {
+                return _isEnabled && !HasIssues;
+            }
+            set
+            {
+                if (_isEnabled != value)
+                {
+                    _isEnabled = value;
+
+                    OnPropertyChanged();
+                }
             }
         }
 

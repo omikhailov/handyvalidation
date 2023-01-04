@@ -42,7 +42,8 @@
             <StackPanel HorizontalAlignment="Center" Width="400" Margin="8,64,8,24">
                 
                 <Label Content="First Name" Margin="0,8,0,0" />
-                <TextBox x:Name="FirstName" Text="{Binding FirstName.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <TextBox Text="{Binding FirstName.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding FirstName.IsEnabled}"
                          validation:Border.IsHighlighted="{Binding FirstName.Validator.HasIssues, Mode=OneWay}" />
                 <TextBlock Text="{Binding FirstName.Validator.FirstIssue, Mode=OneWay}"
                            Visibility="{Binding FirstName.Validator.HasIssues, Mode=OneWay, Converter={StaticResource BooleanToVisibility}}" 
@@ -50,43 +51,56 @@
 
                 <Label Content="Last Name" Margin="0,8,0,0" />
                 <TextBox Text="{Binding LastName.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding LastName.IsEnabled}"
                          validation:Style.Value="{StaticResource InvalidLastName}" 
                          validation:Style.IsApplied="{Binding LastName.Validator.HasIssues, Mode=OneWay}" />
 
                 <Label Content="Date of Birth" Margin="0,8,0,0" />
-                <DatePicker SelectedDate="{Binding Dob.Value, Mode=TwoWay}" HorizontalAlignment="Stretch"
+                <DatePicker HorizontalAlignment="Stretch"
+                            SelectedDate="{Binding Dob.Value, Mode=TwoWay}"
+                            IsEnabled="{Binding Dob.IsEnabled}"
                             validation:Popup.IsOpen="{Binding Dob.Validator.HasIssues, Mode=OneWay}"
                             validation:Popup.ItemsSource="{Binding Dob.Validator.Issues}" />
 
                 <Label Content="Phone Number" Margin="0,8,0,0" />
                 <TextBox Text="{Binding PhoneNumber.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         IsEnabled="{Binding PhoneNumber.IsEnabled}"
                          validation:Popup.IsOpen="{Binding PhoneNumber.Validator.HasIssues, Mode=OneWay}"
                          validation:Popup.ItemsSource="{Binding PhoneNumber.Validator.Issues}" />
 
                 <Label Content="Email" Margin="0,8,0,0" />
                 <TextBox Text="{Binding Email.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Delay=800}"
+                         IsEnabled="{Binding Email.IsEnabled}"
                          validation:Border.IsHighlighted="{Binding Email.Validator.HasIssues, Mode=OneWay}"
                          validation:Popup.IsOpen="{Binding Email.Validator.HasIssues, Mode=OneWay}"
                          validation:Popup.ItemsSource="{Binding Email.Validator.Issues}" />
 
                 <Label Content="Password" Margin="0,8,0,0" />
                 <Grid>
-                    <TextBox Text="{Binding Password.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" Foreground="Transparent"
+                    <TextBox FontFamily="Consolas" Foreground="Transparent"
+                             Text="{Binding Password.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{Binding Password.IsEnabled}"
                              validation:Popup.IsOpen="{Binding Password.Validator.HasIssues, Mode=OneWay}"
                              validation:Popup.ItemsSource="{Binding Password.Validator.Issues}"
                              validation:Popup.ItemTemplate="{StaticResource CustomValidationPopupItem}" />
-                    <TextBox Text="{Binding Password.MetaData, Mode=OneWay}" IsHitTestVisible="False" FontFamily="Consolas" Background="Transparent" />
+                    <TextBox IsHitTestVisible="False" FontFamily="Consolas" Background="Transparent"
+                             Text="{Binding Password.MetaData, Mode=OneWay}"
+                             IsEnabled="{Binding Password.IsEnabled}" />
                 </Grid>
 
                 <Label Content="Confirm Password" Margin="0,8,0,0" />
                 <Grid>
-                    <TextBox Text="{Binding ConfirmPassword.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontFamily="Consolas" Foreground="Transparent"
+                    <TextBox FontFamily="Consolas" Foreground="Transparent"
+                             Text="{Binding ConfirmPassword.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             IsEnabled="{Binding ConfirmPassword.IsEnabled}"
                              validation:Popup.IsOpen="{Binding ConfirmPasswordValidator.HasIssues, Mode=OneWay}"
                              validation:Popup.ItemsSource="{Binding ConfirmPasswordValidator.Issues}" />
-                    <TextBox Text="{Binding ConfirmPassword.MetaData, Mode=OneWay}" IsHitTestVisible="False" FontFamily="Consolas" Background="Transparent" />
+                    <TextBox IsHitTestVisible="False" FontFamily="Consolas" Background="Transparent"
+                             Text="{Binding ConfirmPassword.MetaData, Mode=OneWay}"
+                             IsEnabled="{Binding ConfirmPassword.IsEnabled}" />
                 </Grid>
 
-                <Button Content="Submit" IsEnabled="{Binding SubmitButtonWatcher.IsValid, Mode=OneWay}" Click="Button_Click" HorizontalAlignment="Right" Margin="0,32,0,0" />
+                <Button Content="Submit" IsEnabled="{Binding SubmitButtonWatcher.IsEnabled, Mode=OneWay}" Click="Button_Click" HorizontalAlignment="Right" Margin="0,32,0,0" />
 
             </StackPanel>
         </ScrollViewer>

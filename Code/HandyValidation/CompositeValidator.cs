@@ -51,6 +51,19 @@ namespace HandyValidation
         }
 
         /// <summary>
+        /// Creates a new instance of CompositeValidator
+        /// </summary>
+        /// <param name="items">Validatable items</param>
+        /// <param name="additionalItems">Additional validatable items</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        public CompositeValidator(IEnumerable<IValidatable> items, params IValidatable[] additionalItems)
+        {
+            if (items == null) throw new ArgumentNullException(nameof(items));
+
+            _items = items.Concat(additionalItems).ToArray();
+        }
+
+        /// <summary>
         /// Validator of this validatable which is CompositeValidator itself
         /// </summary>
         public IValidator Validator
