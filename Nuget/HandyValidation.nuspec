@@ -2,14 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>HandyValidation</id>
-    <version>1.0.8</version>
+    <version>1.0.9</version>
     <title>HandyValidation</title>
     <authors>Oleg Mikhailov</authors>
     <owners></owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>https://github.com/omikhailov/handyvalidation/blob/main/LICENSE</licenseUrl>
     <projectUrl>https://github.com/omikhailov/handyvalidation</projectUrl>
-    <description>Validation library for WinUI, UWP and WPF. This package contains interfaces and classes for view model layer.</description>
+    <description>Validation library for WinUI, UWP and WPF. This package contains interfaces and classes for view model layer: Property&lt;T&gt;, RulesValidator, CustomValidator, CompositeValidator, ValidationStateWatcher, InputSwitch and others.</description>
     <summary>Validation library for WinUI, UWP and WPF</summary>
     <tags>winui uwp wpf validation mvvm</tags>
   </metadata>

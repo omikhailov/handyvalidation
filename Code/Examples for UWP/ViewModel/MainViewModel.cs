@@ -40,7 +40,7 @@ namespace Examples.ViewModel
                 Rule.NotNullOrWhiteSpace().WithMessage("Please enter phone number"),
                 Rule.NumberOfDigits(8, 11).WithMessage("Please enter either 8-digit local number or 11-digit mobile number"),
                 Rule.AllowedSymbols("+()- 0123456789").WithMessage("The phone number you entered contains invalid characters")),
-            ValueChanged = info => { info.Property.MetaData = string.Concat(info.NewValue.Where(c => char.IsDigit(c))); }
+            ValueChanged = info => { info.Property.Metadata = string.Concat(info.NewValue.Where(c => char.IsDigit(c))); }
         };
 
         public Property<string> Email = new Property<string>()

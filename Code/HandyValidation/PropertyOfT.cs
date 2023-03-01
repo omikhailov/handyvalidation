@@ -180,28 +180,52 @@ namespace HandyValidation
         /// <summary>
         /// Backing field for Metadata property
         /// </summary>
-        protected object _metaData;
+        protected object _metadata;
 
         /// <summary>
         /// Custom data associated with this property
         /// </summary>
-        public virtual object MetaData
+        public virtual object Metadata
         {
             get
             {
-                return _metaData;
+                return _metadata;
             }
             set
             {
-                if (_metaData != value)
+                if (_metadata != value)
                 {
-                    _metaData = value;
+                    _metadata = value;
 
                     OnPropertyChanged();
                 }
             }
         }
 
+        /// <summary>
+        /// Backing field for IgnoreEqualValues property
+        /// </summary>
+        protected bool _ignoreEqualValues = true;
+
+        /// <summary>
+        /// Flag indicating whether to check for values equality in the setter or not
+        /// </summary>
+        public virtual bool IgnoreEqualValues
+        {
+            get 
+            { 
+                return _ignoreEqualValues; 
+            }
+            set
+            {
+                if (_ignoreEqualValues != value)
+                {
+                    _ignoreEqualValues = value;
+
+                    OnPropertyChanged();
+                }
+            }
+        }
         /// <summary>
         /// Delegate firing before assignmet delay starts
         /// </summary>
@@ -256,7 +280,7 @@ namespace HandyValidation
                 }
                 catch (OperationCanceledException) { }
             }
-            
+
             return _value;
         }
 
@@ -268,9 +292,19 @@ namespace HandyValidation
         {
             if (!_isReadonly && _isEnabled)
             {
-                if (_isDirty && _equalityComparer.Equals(_value, value)) return;
-                
-                if (!_isDirty && _equalityComparer.Equals(_lastSetValue, value)) return;
+                if (!IgnoreEqualValues)
+                {
+                    if (_isDirty && _equalityComparer.Equals(_value, value))
+                    {
+                        _lastSetValue = value;
+
+                        IsDirty = false;
+
+                        return;
+                    }
+
+                    if (!_isDirty && _equalityComparer.Equals(_lastSetValue, value)) return;
+                }
 
                 if (_cts != null)
                 {
@@ -283,7 +317,7 @@ namespace HandyValidation
 
                 _lastSetValue = value;
 
-                _lastSetOperation = InternalSetAsync(value, _cts.Token).ContinueWith(t => 
+                _lastSetOperation = InternalSetAsync(value, _cts.Token).ContinueWith(t =>
                 {
                     _cts?.Dispose();
 
@@ -295,9 +329,9 @@ namespace HandyValidation
 
                         IsDirty = false;
                     }
-                }, 
+                },
                 TaskScheduler.FromCurrentSynchronizationContext());
-                
+
                 await _lastSetOperation;
             }
         }
@@ -322,7 +356,7 @@ namespace HandyValidation
 
                     var delay = _delay;
 
-                    if (DelayStarting != null || DelayStartingAsync != null) 
+                    if (DelayStarting != null || DelayStartingAsync != null)
                     {
                         var startedAt = DateTime.UtcNow;
 
@@ -368,7 +402,7 @@ namespace HandyValidation
             catch (Exception e)
             {
                 _value = previousValue;
-                
+
                 if (!(e is OperationCanceledException))
                 {
                     try
