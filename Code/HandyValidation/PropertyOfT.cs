@@ -292,7 +292,7 @@ namespace HandyValidation
         {
             if (!_isReadonly && _isEnabled)
             {
-                if (!IgnoreEqualValues)
+                if (IgnoreEqualValues)
                 {
                     if (_isDirty && _equalityComparer.Equals(_value, value))
                     {
