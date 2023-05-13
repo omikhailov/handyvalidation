@@ -41,7 +41,10 @@ namespace HandyValidation
         /// <summary>
         /// Creates new instance of Property
         /// </summary>
-        public Property() { }
+        /// <param name="defaultValidatorState">Initial validation state</param>
+        public Property(ValidatorState defaultValidatorState = ValidatorState.Valid) : this(default(T), defaultValidatorState)
+        {
+        }
 
         /// <summary>
         /// Creates new instance of Property
@@ -53,6 +56,10 @@ namespace HandyValidation
             _value = defaultValue;
 
             _defaultValidatorState = defaultValidatorState;
+
+            Get = DefaultGet;
+
+            Set = DefaultSet;
         }
 
         /// <summary>
@@ -67,13 +74,23 @@ namespace HandyValidation
         {
             get
             {
-                return _value;
+                return Get();
             }
             set
             {
                 _ = SetAsync(value);
             }
         }
+
+        /// <summary>
+        /// Getter delegate. Assign custom getter to wrap external value, e.g. a property of a model not implementing INotifyPropertyChanged.
+        /// </summary>
+        public Func<T> Get;
+
+        /// <summary>
+        /// Setter delegate. Assign custom setter to wrap external value, e.g. a property of a model not implementing INotifyPropertyChanged.
+        /// </summary>
+        public Action<T> Set;
 
         /// <summary>
         /// Backing field for IsReadonly property
@@ -208,7 +225,7 @@ namespace HandyValidation
         protected bool _ignoreEqualValues = true;
 
         /// <summary>
-        /// Flag indicating whether to check for values equality in the setter or not
+        /// Flag indicating whether to check for values equality before setting new value or not. By default is true.
         /// </summary>
         public virtual bool IgnoreEqualValues
         {
@@ -267,6 +284,24 @@ namespace HandyValidation
         public Func<PropertyChangeInfo<T>, Exception, Task> OnErrorAsync;
 
         /// <summary>
+        /// Default getter
+        /// </summary>
+        /// <returns>Current value</returns>
+        protected virtual T DefaultGet()
+        {
+            return _value;
+        }
+
+        /// <summary>
+        /// Default setter
+        /// </summary>
+        /// <param name="value">Value to set</param>
+        protected virtual void DefaultSet(T value)
+        {
+            _value = value;
+        }
+
+        /// <summary>
         /// Waits for the last operation on this property, to safely get its most recent value
         /// </summary>
         /// <returns>Value</returns>
@@ -281,7 +316,7 @@ namespace HandyValidation
                 catch (OperationCanceledException) { }
             }
 
-            return _value;
+            return Get();
         }
 
         /// <summary>
@@ -294,7 +329,7 @@ namespace HandyValidation
             {
                 if (IgnoreEqualValues)
                 {
-                    if (_isDirty && _equalityComparer.Equals(_value, value))
+                    if (_isDirty && _equalityComparer.Equals(Get(), value))
                     {
                         _lastSetValue = value;
 
@@ -344,7 +379,7 @@ namespace HandyValidation
         /// <returns>Task</returns>
         protected virtual async Task<bool> InternalSetAsync(T value, CancellationToken token)
         {
-            var previousValue = _value;
+            var previousValue = Get();
 
             var changeInfo = new PropertyChangeInfo<T>(this, previousValue, value, token);
 
@@ -384,7 +419,7 @@ namespace HandyValidation
 
                 if (token.IsCancellationRequested) return false;
 
-                _value = value;
+                Set(value);
 
                 if (ValueChanged != null) ValueChanged(changeInfo);
 
@@ -392,7 +427,7 @@ namespace HandyValidation
 
                 if (token.IsCancellationRequested)
                 {
-                    _value = previousValue;
+                    Set(previousValue);
 
                     return false;
                 }
@@ -401,7 +436,7 @@ namespace HandyValidation
             }
             catch (Exception e)
             {
-                _value = previousValue;
+                Set(previousValue);
 
                 if (!(e is OperationCanceledException))
                 {
@@ -427,7 +462,7 @@ namespace HandyValidation
         }
 
         /// <summary>
-        /// Validates last set value of this property
+        /// Validates the last set value of this property
         /// </summary>
         /// <param name="token">Cancellation token for validation task</param>
         /// <returns>Task</returns>
